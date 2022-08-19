@@ -1,4 +1,4 @@
-# React e-commerce website with graphQL api on Apollo server and opus builder
+# React e-commerce website with graphQL api on Apollo server and with opus builder
 
 ## General info
 
