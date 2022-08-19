@@ -1,0 +1,94 @@
+nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    background: var(--bg-primary);
+    width: 100%;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19.2px;
+}
+.nav__wrapper {
+    padding: 0 100px 0 100px;
+    height: 80px;
+    display: grid;
+    grid-template-columns:  1fr 1fr 1fr;
+    display: flex;
+    align-items: center;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.category__section {
+    width: 33.3%;
+}
+.category__section ul {
+    text-align: left;
+    padding: 0;
+    
+}
+.category__section > ul > li {
+    display: inline;
+    padding: 0 10px 0 10px;
+    cursor: pointer;
+    
+}
+.category__section > ul > li > a {
+    text-decoration: none;
+    color: var(--text-dark);
+    text-transform: uppercase;
+}
+.selected {
+    border-bottom: 2px solid var(--light-green);
+    color: var(--light-green);
+    padding: 0 0 20px 0;
+}
+.logo__section {
+    width: 33.3%;
+    text-align: center;
+}
+.logo__section img {
+    min-height: 28.62px;
+    min-width: 31.18px;
+}
+.buttons__section {
+    width: 33%;
+    text-align: right;
+}
+.buttons__section button{
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-right: 30px;
+}
+.buttons__section > button > img {
+    color: var(--text-dark);
+}
+.buttons__section button:nth-child(1){
+}
+.buttons__section button:nth-child(2){
+    width: 20px;
+    height: 20px;
+    padding-left: 30px;
+    top: 25%;
+    -ms-transform: translateY(25%);
+    transform: translateY(25%);
+}
+#nav__select {
+    appearance: none;
+    background-color: transparent;
+    font-size: 18px;
+    font-weight: 500;
+    border: none;
+    font-family: 'Raleway', sans-serif;
+    cursor: inherit;
+    line-height: inherit;
+    outline: none;
+    width: 35px;
+    background: url(../assets/vector.png) no-repeat;
+    background-position: 100%;
+    cursor: pointer;
+}
