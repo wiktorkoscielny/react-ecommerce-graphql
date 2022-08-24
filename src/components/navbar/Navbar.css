@@ -28,17 +28,16 @@ nav {
 .category__section ul {
     text-align: left;
     padding: 0;
-    
 }
 .category__section > ul > li {
     display: inline;
     padding: 0 10px 0 10px;
     cursor: pointer;
-    
+    text-transform: uppercase;
 }
 .category__section > ul > li > a {
     text-decoration: none;
-    color: var(--text-dark);
+    /* color: var(--text-dark); */
     text-transform: uppercase;
 }
 .selected {

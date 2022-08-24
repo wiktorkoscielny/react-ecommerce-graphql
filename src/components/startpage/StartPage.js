@@ -8,19 +8,34 @@ class StartPage extends React.PureComponent { // eslint-disable-next-line
     super(props);
     this.state = {
       currency: '',
+      products: []
     }
   }
-  componentDidMount() {
+  componentDidMount = async () => {
     const currencyData = this.props.currencyData
     this.setState({
-      currency: currencyData
+      currency: currencyData,
+      // products: allCateg
     })
   }
 
   render() {
-    return (  
+    return (
+      
       <section>
         <div className='temporary__wrapper'>Current Currency: {this.props.currencyData}</div>
+        {this.props.allCateg ? 
+          <ul>
+          {this.props.allCateg.map((item, index) => {
+            return(
+              <li key={index}>
+                {item[0].brand}
+                <img src={item[0].gallery}/>
+              </li>
+            )
+          })}
+          </ul>
+        : 'Loading....'}
       </section>    
     );
   } 
