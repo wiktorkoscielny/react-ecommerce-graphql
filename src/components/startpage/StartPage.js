@@ -5,8 +5,7 @@ import AllCateg from './AllCateg'
 import TechCateg from './TechCateg'
 import ClothesCateg from './ClothesCateg';
 
-// styles in css for now
-import './StartPage.css'
+// styles
 
 class StartPage extends React.PureComponent { // eslint-disable-next-line 
   constructor(props){
@@ -25,11 +24,11 @@ class StartPage extends React.PureComponent { // eslint-disable-next-line
   renderSwitch = () => {
     switch(this.props.currentCategory) {
       case 'all':
-        return <AllCateg allCateg={this.props.allCateg} />;
+        return <AllCateg allCateg={this.props.allCateg} currencyData={this.props.currencyData}/>;
       case 'tech':
-        return <TechCateg techCateg={this.props.techCateg} />;
+        return <TechCateg techCateg={this.props.techCateg} currencyData={this.props.currencyData}/>;
       case 'clothes':
-        return <ClothesCateg clothesCateg={this.props.clothesCateg} />
+        return <ClothesCateg clothesCateg={this.props.clothesCateg} currencyData={this.props.currencyData}/>
       }
   }
   render() {
