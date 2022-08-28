@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react'
 
 // components
 import AllCateg from './AllCateg'
@@ -7,11 +7,12 @@ import ClothesCateg from './ClothesCateg';
 
 // styles
 
-class StartPage extends React.PureComponent { // eslint-disable-next-line 
+export default class StartPage extends Component { 
   constructor(props){
     super(props);
     this.state = {
-      currency: ''
+      currency: '',
+      productId: ''
     }
   }
   componentDidMount = async () => {
@@ -24,11 +25,11 @@ class StartPage extends React.PureComponent { // eslint-disable-next-line
   renderSwitch = () => {
     switch(this.props.currentCategory) {
       case 'all':
-        return <AllCateg allCateg={this.props.allCateg} currencyData={this.props.currencyData}/>;
+        return <AllCateg allCateg={this.props.allCateg} currencyData={this.props.currencyData} productIdCallback={this.props.productIdCallback}/>;
       case 'tech':
-        return <TechCateg techCateg={this.props.techCateg} currencyData={this.props.currencyData}/>;
+        return <TechCateg techCateg={this.props.techCateg} currencyData={this.props.currencyData} productIdCallback={this.props.productIdCallback}/>;
       case 'clothes':
-        return <ClothesCateg clothesCateg={this.props.clothesCateg} currencyData={this.props.currencyData}/>
+        return <ClothesCateg clothesCateg={this.props.clothesCateg} currencyData={this.props.currencyData} productIdCallback={this.props.productIdCallback}/>
       }
   }
   render() {
@@ -39,4 +40,3 @@ class StartPage extends React.PureComponent { // eslint-disable-next-line
     );
   } 
 }
-export default StartPage;
