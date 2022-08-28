@@ -7,12 +7,14 @@ export default class AllCateg extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            allCateg: []
+            allCateg: [],
+            productClicked: ''
         }
     }
     componentDidMount() {
         const categ = this.props.allCateg
         this.setState({
+            ...this.state,
             allCateg: categ,
         })
     }
@@ -36,7 +38,7 @@ export default class AllCateg extends Component {
                 <ListWrapper>
                     {this.props.allCateg.map((item, index) => {
                         return (
-                            <ListItem key={index}>
+                            <ListItem key={index} onClick={() => this.props.productIdCallback(item[0].id)}>
                                 <ImgWrapper src={item[0].gallery} style={{ width: '100%', height: '80%' }}></ImgWrapper>
                                 <p>{item[0].name}</p>
                                 <p>
@@ -51,3 +53,4 @@ export default class AllCateg extends Component {
         )
     }
 }
+//onClick={() => this.setState({...this.state, productClicked: item[0].id})}
