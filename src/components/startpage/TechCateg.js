@@ -36,7 +36,7 @@ export default class TechCateg extends Component {
                 <ListWrapper>
                     {this.props.techCateg.map((item, index) => {
                         return (
-                            <ListItem key={index}>
+                            <ListItem key={index} onClick={() => this.props.productIdCallback(item[0].id)}>
                                 <ImgWrapper src={item[0].gallery} style={{ width: '100%', height: '80%' }}></ImgWrapper>
                                 <p>{item[0].name}</p>
                                 <p>

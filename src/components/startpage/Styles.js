@@ -5,7 +5,7 @@ export const ListWrapper = styled.ul`
     margin: 0;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
+    gap: 2rem;
     text-align: center;
 
     @media screen and (max-width: 890px) {
@@ -19,7 +19,8 @@ export const ListItem = styled.li`
     list-style: none;
     display: inline;
     text-align: center;
-
+    cursor: pointer;
+    padding: 0 0 50px 0;
     p {
         font-size: 18px;
         font-family: 'Raleway';

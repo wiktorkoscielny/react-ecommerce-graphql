@@ -25,8 +25,8 @@ export default class App extends Component {
       techCateg: [],
       clothesCateg: [],
       allCateg: [],
-      products: [],
-      currentCategory: 'tech'
+      productId: {},
+      currentCategory: 'tech',
     }
   }
   componentDidMount = async () => {
@@ -58,12 +58,6 @@ export default class App extends Component {
       // allCateg: JSON.parse(JSON.stringify(allCateg)),
       allCateg: allCateg.category.products.map(product => [product])
     })
-    // products
-    // const products =  await JSON.parse(JSON.stringify((await getProduct('PRODUCT ID'))))
-    // this.setState({
-    //   ...this.state,
-    //   products: products
-    // })
   }
   currencySymbolChanger(e) {
     e.preventDefault();
@@ -76,12 +70,19 @@ export default class App extends Component {
       currentCategory: current
     })
   }
+  handleProductIdCallback = async (childData) => {
+    const product =  await JSON.parse(JSON.stringify((await getProduct(childData))))
+    this.setState({
+      ...this.state,
+      productId: product.product
+    })
+  }
   render() {
     return (
       <Router>
         <Navbar handleOnChange={(e) => this.currencySymbolChanger(e)} data={this.state.currencies} toggleClicked={this.toggleClicked} currentCateg={this.state.currentCategory} />
         <Routes>
-          <Route path='/' element={<StartPage currencyData={this.state.currentCurrency} allCateg={this.state.allCateg} techCateg={this.state.techCateg} clothesCateg={this.state.clothesCateg} currentCategory={this.state.currentCategory} />} />
+          <Route path='/' element={<StartPage currencyData={this.state.currentCurrency} allCateg={this.state.allCateg} techCateg={this.state.techCateg} clothesCateg={this.state.clothesCateg} currentCategory={this.state.currentCategory} productClicked={this.props.productClicked} productIdCallback={this.handleProductIdCallback}/>} />
         </Routes>
       </Router>
     )
