@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
 // styles
 import { ListWrapper, ListItem, ImgWrapper } from './Styles';
@@ -38,14 +39,19 @@ export default class AllCateg extends Component {
                 <ListWrapper>
                     {this.props.allCateg.map((item, index) => {
                         return (
-                            <ListItem key={index} onClick={() => this.props.productIdCallback(item[0].id)}>
-                                <ImgWrapper src={item[0].gallery} style={{ width: '100%', height: '80%' }}></ImgWrapper>
-                                <p>{item[0].name}</p>
-                                <p>
-                                    {this.props.currencyData}
-                                    {this.currencySwitcher(item[0])}
-                                </p>
-                            </ListItem>
+                            <Link
+                                to={`/details/${item[0].id}`}
+                                key={index}
+                            >
+                                <ListItem onClick={() => this.props.productIdCallback(item[0].id)}>
+                                    <ImgWrapper src={item[0].gallery} style={{ width: '100%', height: '80%' }}></ImgWrapper>
+                                    <p>{item[0].name}</p>
+                                    <p>
+                                        {this.props.currencyData}
+                                        {this.currencySwitcher(item[0])}
+                                    </p>
+                                </ListItem>
+                            </Link>
                         )
                     })}
                 </ListWrapper>
@@ -53,4 +59,3 @@ export default class AllCateg extends Component {
         )
     }
 }
-//onClick={() => this.setState({...this.state, productClicked: item[0].id})}
