@@ -4,14 +4,13 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 // components
 import Navbar from './components/navbar/Navbar'
 import StartPage from './components/startpage/StartPage';
+import DetailsPage from './components/detailspage/detalisPage';
 
 //queries
 import getCurrencies from './queries/GetCurriences';
 import getProduct from './queries/GetProducts';
 import getCategory from './queries/GetCategory';
 import getAllCategories from './queries/GetAllCategories';
-
-
 
 export default class App extends Component {
   constructor(props) {
@@ -26,6 +25,7 @@ export default class App extends Component {
       clothesCateg: [],
       allCateg: [],
       productId: {},
+      pathnameId: '',
       currentCategory: 'tech',
     }
   }
@@ -74,15 +74,18 @@ export default class App extends Component {
     const product =  await JSON.parse(JSON.stringify((await getProduct(childData))))
     this.setState({
       ...this.state,
-      productId: product.product
+      productId: product.product,
+      pathnameId: childData
     })
   }
+  
   render() {
     return (
       <Router>
         <Navbar handleOnChange={(e) => this.currencySymbolChanger(e)} data={this.state.currencies} toggleClicked={this.toggleClicked} currentCateg={this.state.currentCategory} />
         <Routes>
           <Route path='/' element={<StartPage currencyData={this.state.currentCurrency} allCateg={this.state.allCateg} techCateg={this.state.techCateg} clothesCateg={this.state.clothesCateg} currentCategory={this.state.currentCategory} productClicked={this.props.productClicked} productIdCallback={this.handleProductIdCallback}/>} />
+          <Route path={`/details/${this.state.pathnameId}`} element={<DetailsPage productData={this.state.productId} />} />
         </Routes>
       </Router>
     )

@@ -34,28 +34,35 @@ export default class Navbar extends Component {
           <div className='category__section'>
             <ul>
               <li>
-                <a
+                <Link
+                  to='/'
                   onClick={() => this.props.toggleClicked('tech')}
                   className={this.props.currentCateg === 'tech' ? 'selected' : null}
                 >
                   tech
-                </a>
+                </Link>
               </li>
               <li>
-                <a
+                <Link
+                  to='/'
                   onClick={() => this.props.toggleClicked('clothes')}
                   className={this.props.currentCateg === 'clothes' ? 'selected' : null}
                 >
+
                   clothes
-                </a>
+
+                </Link>
               </li>
               <li>
-                <a
+                <Link
+                  to='/'
                   onClick={() => this.props.toggleClicked('all')}
                   className={this.props.currentCateg === 'all' ? 'selected' : null}
                 >
+
                   all
-                </a>
+
+                </Link>
               </li>
             </ul>
           </div>
