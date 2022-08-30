@@ -50,12 +50,12 @@ export const Button = styled.button`
     border: 0px;
 `
 export const ListOfOptions = styled.button`
-    width: auto;
+    min-width: 63px;
     height: 45px;
     text-align: center;
     margin-right: 5px;
     background: ${({ param1, param2, currentOption }) => (currentOption === param1 + param2 ? 'var(--text-dark)' : 'var(--bg-primary)')};
-    color: ${({  param1, param2, currentOption }) => (currentOption === param1 + param2 ? 'var(--bg-primary)' : 'var(--text-dark)')};
+    color: ${({ param1, param2, currentOption }) => (currentOption === param1 + param2 ? 'var(--bg-primary)' : 'var(--text-dark)')};
     font-size: 16px;
     border: 1px solid var(--text-dark);
     font-family: 'Source Sans Pro', sans-serif;
