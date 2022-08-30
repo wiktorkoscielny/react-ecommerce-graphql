@@ -84,10 +84,11 @@ export default class App extends Component {
       <Router>
         <Navbar handleOnChange={(e) => this.currencySymbolChanger(e)} data={this.state.currencies} toggleClicked={this.toggleClicked} currentCateg={this.state.currentCategory} />
         <Routes>
-          <Route path='/' element={<StartPage currencyData={this.state.currentCurrency} allCateg={this.state.allCateg} techCateg={this.state.techCateg} clothesCateg={this.state.clothesCateg} currentCategory={this.state.currentCategory} productClicked={this.props.productClicked} productIdCallback={this.handleProductIdCallback}/>} />
-          <Route path={`/details/${this.state.pathnameId}`} element={<DetailsPage productData={this.state.productId} />} />
+          <Route path={`/details/${this.state.pathnameId}`} element={<DetailsPage productData={this.state.productId} currentCurrency={this.state.currentCurrency} />} />
+          <Route exact path='/' element={<StartPage currencyData={this.state.currentCurrency} allCateg={this.state.allCateg} techCateg={this.state.techCateg} clothesCateg={this.state.clothesCateg} currentCategory={this.state.currentCategory} productClicked={this.props.productClicked} productIdCallback={this.handleProductIdCallback}/>} />
         </Routes>
       </Router>
     )
   }
 }
+// add notfound route
