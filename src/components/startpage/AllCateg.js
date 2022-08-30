@@ -42,9 +42,10 @@ export default class AllCateg extends Component {
                             <Link
                                 to={`/details/${item[0].id}`}
                                 key={index}
+                                style={{textDecoration: 'none'}}
                             >
                                 <ListItem onClick={() => this.props.productIdCallback(item[0].id)}>
-                                    <ImgWrapper src={item[0].gallery} style={{ width: '100%', height: '80%' }}></ImgWrapper>
+                                    <ImgWrapper src={item[0].gallery}></ImgWrapper>
                                     <p>{item[0].name}</p>
                                     <p>
                                         {this.props.currencyData}
