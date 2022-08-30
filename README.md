@@ -3,6 +3,7 @@
 ## General info
 
 Here I'm building e-commerce website, basicly to learn how to use graphql api data from Apollo server and using opus to generate graphql requests.
-I have just started working on that project
+
+The last thing i have to do is to create cart tab where i will handle added products (add, delete, number of added products)
 
 ![](./public/preview.gif)
