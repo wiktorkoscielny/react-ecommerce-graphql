@@ -3,9 +3,6 @@ import React, { Component } from 'react'
 // styled components
 import { SectionsWrapper, LeftSection, MiddleSection, RightSection, Button, ListOfOptions } from './Styles';
 
-// styles
-import './styles.css'
-
 export default class DetailsPage extends Component {
     constructor(props) {
         super(props);
