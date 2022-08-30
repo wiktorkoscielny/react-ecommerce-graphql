@@ -31,5 +31,7 @@ export const ListItem = styled.li`
     }
 `
 export const ImgWrapper = styled.img`
-
+    width: 100%;
+    height: 80%
+    max-height: 282px;
 `
