@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 // styled components
-import { SectionsWrapper, LeftSection, MiddleSection, RightSection, Button, ListOfOptions } from './Styles';
+import { SectionsWrapper, LeftSection, MiddleSection, RightSection, Button, ListOfOptions, ListOfColors } from './Styles';
 
 export default class DetailsPage extends Component {
     constructor(props) {
@@ -111,8 +111,8 @@ export default class DetailsPage extends Component {
                                     <h4>{item.id}:</h4>
                                     {item.items.map((i, c) => {
                                         return (
-                                            <ListOfOptions key={c} onClick={() => this.changeFirstOption(item.id, i.id)} param1={item.id} param2={i.id} currentOption={this.state.current1Option}>
-                                                {i.id}
+                                            <ListOfOptions key={c} onClick={() => this.changeFirstOption(item.id, i.id)} param1={item.id} param2={i.id} currentOption={this.state.current1Option} color={i.value}>
+                                                {item.id !== 'Color' ? i.id : null}
                                             </ListOfOptions>
                                         )
                                     })}
@@ -128,8 +128,8 @@ export default class DetailsPage extends Component {
                                     <h4>{item.id}:</h4>
                                     {item.items.map((i, c) => {
                                         return (
-                                            <ListOfOptions key={c} onClick={() => this.changeSecondOption(item.id, i.id)} param1={item.id} param2={i.id} currentOption={this.state.current2Option}>
-                                                {i.id}
+                                            <ListOfOptions key={c} onClick={() => this.changeSecondOption(item.id, i.id)} param1={item.id} param2={i.id} currentOption={this.state.current2Option} color={i.value}>
+                                                {item.id !== 'Color' ? i.id : null}
                                             </ListOfOptions>
                                         )
                                     })}
@@ -145,8 +145,8 @@ export default class DetailsPage extends Component {
                                     <h4>{item.id}:</h4>
                                     {item.items.map((i, c) => {
                                         return (
-                                            <ListOfOptions key={c} onClick={() => this.changeThirdOption(item.id, i.id)} param1={item.id} param2={i.id} currentOption={this.state.current3Option}>
-                                                {i.id}
+                                            <ListOfOptions key={c} onClick={() => this.changeThirdOption(item.id, i.id)} param1={item.id} param2={i.id} currentOption={this.state.current3Option} color={i.value}>
+                                                {item.id !== 'Color' ? i.id : null}
                                             </ListOfOptions>
                                         )
                                     })}
