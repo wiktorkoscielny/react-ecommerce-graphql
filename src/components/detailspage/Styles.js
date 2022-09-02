@@ -48,6 +48,13 @@ export const Button = styled.button`
     color: var(--bg-primary);
     background: var(--light-green);
     border: 0px;
+    cursor: pointer;
+    box-shadow: 0 0 40px 40px var(--light-green) inset, 0 0 0 0 var(--light-green);
+    -webkit-transition: all 150ms ease-in-out;
+    transition: all 150ms ease-in-out;
+    :hover {
+        box-shadow: 0 0 10px 0 var(--light-green) inset, 0 0 10px 4px var(--light-green);
+    }
 `
 
 export const ListOfOptions = styled.button`
@@ -64,10 +71,4 @@ export const ListOfOptions = styled.button`
     outline: ${({ param1, param2, currentOption }) => (currentOption === param1 + param2 && param1 === 'Color' ? '2px solid var(--light-green)' : null)};
     font-family: 'Source Sans Pro', sans-serif;
     cursor: pointer;
-`
-export const ListOfColors = styled.div`
-    height: 32px;
-    width: 32px;
-    background: red;
-    border: 0px;
 `
