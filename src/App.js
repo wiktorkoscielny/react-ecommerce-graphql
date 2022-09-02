@@ -28,9 +28,6 @@ export default class App extends Component {
       productId: {},
       pathnameId: '',
       currentCategory: 'tech',
-      costam: [{
-        srostam: ''
-      }],
       // sotrage of shopping cart
       storageOfProducts: {
         products: []
@@ -80,7 +77,7 @@ export default class App extends Component {
     })
   }
   handleProductIdCallback = async (childData) => {
-    const product =  await JSON.parse(JSON.stringify((await getProduct(childData))))
+    const product = await JSON.parse(JSON.stringify((await getProduct(childData))))
     this.setState({
       ...this.state,
       productId: product.product,
@@ -94,7 +91,7 @@ export default class App extends Component {
       productData: productData,
       chosenOptions: filteredOptions,
     }
-    
+
     const existingProduct = this.state.storageOfProducts.products.find(el => el.newProduct.id === productId);
     if (existingProduct) {
       return alert('This product has already been added to cart')
@@ -102,7 +99,7 @@ export default class App extends Component {
       this.setState({
         ...this.state,
         storageOfProducts: {
-          products: [ ...this.state.storageOfProducts.products, {newProduct}]
+          products: [...this.state.storageOfProducts.products, { newProduct }]
         }
       })
     }
@@ -111,18 +108,18 @@ export default class App extends Component {
   handleCartChange = (productId, param1, param2) => {
     const existingProduct = this.state.storageOfProducts.products.find(el => el.newProduct.id === productId);
     const newData = param2 + param1
-    if (!existingProduct) return 
+    if (!existingProduct) return
     else {
       this.state.storageOfProducts.products.map(item => {
         if (item.newProduct.id === productId) {
           const found = item.newProduct.chosenOptions[0].indexOf(param2)
-          const xd =  item.newProduct.chosenOptions.splice(found, 1)
+          const xd = item.newProduct.chosenOptions.splice(found, 1)
           item.newProduct.chosenOptions.push([param2, newData])
         } return item
       })
-        // tamte rzeczy zmapowac ze stanu a opcje z propsa
+      // tamte rzeczy zmapowac ze stanu a opcje z propsa
       const numberOfUpdating = 'stateUpdated'
-      this.setState({stateUpdated: numberOfUpdating}) // force state update after mutating of array
+      this.setState({ stateUpdated: numberOfUpdating }) // force state update after mutating of array
     }
   }
   render() {
@@ -130,9 +127,9 @@ export default class App extends Component {
       <Router>
         <Navbar handleOnChange={(e) => this.currencySymbolChanger(e)} data={this.state.currencies} toggleClicked={this.toggleClicked} currentCateg={this.state.currentCategory} />
         <Routes>
-          <Route path={`/details/${this.state.pathnameId}`} element={<DetailsPage productData={this.state.productId} currentCurrency={this.state.currentCurrency}  storageOfProducts={this.state.storageOfProducts} handleProductAdd={this.handleProductAdd}/>} />
-          <Route exact path='/' element={<StartPage currencyData={this.state.currentCurrency} allCateg={this.state.allCateg} techCateg={this.state.techCateg} clothesCateg={this.state.clothesCateg} currentCategory={this.state.currentCategory} productClicked={this.props.productClicked} productIdCallback={this.handleProductIdCallback}/>} />
-          <Route path={'/cart'} element={<CartPage storageOfProducts={this.state.storageOfProducts} currentCurrency={this.state.currentCurrency}  handleCartChange={this.handleCartChange}/>} />
+          <Route path={`/details/${this.state.pathnameId}`} element={<DetailsPage productData={this.state.productId} currentCurrency={this.state.currentCurrency} storageOfProducts={this.state.storageOfProducts} handleProductAdd={this.handleProductAdd} />} />
+          <Route exact path='/' element={<StartPage currencyData={this.state.currentCurrency} allCateg={this.state.allCateg} techCateg={this.state.techCateg} clothesCateg={this.state.clothesCateg} currentCategory={this.state.currentCategory} productClicked={this.props.productClicked} productIdCallback={this.handleProductIdCallback} />} />
+          <Route path={'/cart'} element={<CartPage storageOfProducts={this.state.storageOfProducts} currentCurrency={this.state.currentCurrency} handleCartChange={this.handleCartChange} />} />
         </Routes>
       </Router>
     )
