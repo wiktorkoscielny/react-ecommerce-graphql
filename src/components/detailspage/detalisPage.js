@@ -15,6 +15,11 @@ export default class DetailsPage extends Component {
             current1Option: '',
             current2Option: '',
             current3Option: '',
+            
+            // add product data to cart
+            productDetailsSender: {
+
+            }
         }
     }
     componentDidMount() {
@@ -51,21 +56,32 @@ export default class DetailsPage extends Component {
         }
     }
     changeFirstOption = (param1, param2) => {
+        const name = {
+            param1: {
+                param2
+            }
+        }
         this.setState({
             ...this.state,
-            current1Option: param1 + param2
+            current1Option: param1 + param2,
+            nameOf1Option: param1,
+            option1Details: param2
         })
     }
     changeSecondOption = (param1, param2) => {
         this.setState({
             ...this.state,
-            current2Option: param1 + param2
+            current2Option: param1 + param2,
+            nameOf2Option: param1,
+            option2Details: param2
         })
     }
     changeThirdOption = (param1, param2) => {
         this.setState({
             ...this.state,
-            current3Option: param1 + param2
+            current3Option: param1 + param2,
+            nameOf3Option: param1,
+            option3Details: param2
         })
     }
     render() {
@@ -156,7 +172,7 @@ export default class DetailsPage extends Component {
 
                         <h4>price:</h4>
                         <p style={{ fontSize: '24px', lineHeight: '18px', fontWeight: '700' }}>{this.props.currentCurrency}{this.currencySwitcher(this.props.productData)}</p>
-                        <Button>add to cart</Button>
+                        <Button onClick={() => this.props.handleProductAdd(this.state.productData, [[this.state.nameOf1Option, this.state.current1Option],[this.state.nameOf2Option, this.state.current2Option], [this.state.nameOf3Option, this.state.current3Option]], this.state.productData.id)}>add to cart</Button>
                         <p>{(propsData.description).replace(regex, '')}</p>
 
                     </RightSection>
