@@ -78,7 +78,7 @@ export default class Navbar extends Component {
             </select>
 
 
-            <button><img src={CART} alt='shopping cart button' /></button>
+            <button><Link to='/cart' ><img src={CART} alt='shopping cart button' /></Link></button>
           </div>
         </div>
       </nav>
