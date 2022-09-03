@@ -1,26 +1,26 @@
 import React, { Component } from 'react';
 
-import {CartWrapper, CartProduct, CartLeftSection, ReturnedProduct, CartRightSection, ListOfOptions, ListOfColors, QuantitySection, TitleWrapper, PhotoSection, Summary} from './Styles'
+import { CartWrapper, CartProduct, CartLeftSection, ReturnedProduct, CartRightSection, ListOfOptions, ListOfColors, QuantitySection, TitleWrapper, PhotoSection, Summary } from './Styles'
 
 export default class CartPage extends Component {
     constructor(props) {
         super(props)
-        this.state ={
+        this.state = {
             productsAsProps: {},
             chosenOptions: []
         }
     }
-   componentDidMount() {
-    const listOfProducts = this.props.storageOfProducts
-    const chosenOptions = listOfProducts.products[0].newProduct.chosenOptions
-    this.setState({
-        ...this.state,
-        productsAsProps: listOfProducts,
-        chosenOptions: [chosenOptions]
-    })
-    // console.log(JSON.stringify(listOfProducts.products[0].newProduct.chosenOptions))
-   }
-   currencySwitcher = (param) => {
+    componentDidMount() {
+        const listOfProducts = this.props.storageOfProducts
+        const chosenOptions = listOfProducts.products[0].newProduct.chosenOptions
+        this.setState({
+            ...this.state,
+            productsAsProps: listOfProducts,
+            chosenOptions: [chosenOptions]
+        })
+        // console.log(JSON.stringify(listOfProducts.products[0].newProduct.chosenOptions))
+    }
+    currencySwitcher = (param) => {
         switch (this.props.currentCurrency) {
             case '$':
                 return <>{param.prices[0].amount}</>
@@ -36,20 +36,19 @@ export default class CartPage extends Component {
     }
     render() {
         const product = this.props.storageOfProducts
-        return(
+        return (
             <section>
                 <CartWrapper>
                     <TitleWrapper>
                         <h1>cart</h1>
                     </TitleWrapper>
-                    
-                    
+
+
                     <CartProduct>
-                        {this.props.storageOfProducts && product.products.map((item, index) => {
-                            // const option1 = item.newProduct.chosenOptions[0][1]
-                            // const option2 = item.newProduct.chosenOptions[1][1]
-                            // const option3 = item.newProduct.chosenOptions[2][1]
-                            // const option4 = item.newProduct.chosenOptions[3][1]
+                        {product.products.map((item, index) => {
+                            const option1 = item.newProduct.chosenOptions[0] ? item.newProduct.chosenOptions[0][1] : null
+                            const option2 = item.newProduct.chosenOptions[1] ? item.newProduct.chosenOptions[1][1] : null
+                            const option3 = item.newProduct.chosenOptions[2] ? item.newProduct.chosenOptions[2][1] : null
                             const productId = item.newProduct.id
                             return (
                                 <ReturnedProduct key={index}>
@@ -57,47 +56,47 @@ export default class CartPage extends Component {
                                         <h1>{item.newProduct.productData.brand}</h1>
                                         <h2>{item.newProduct.productData.id}</h2>
                                         <h3>{this.props.currentCurrency}{this.currencySwitcher(item.newProduct.productData)}</h3>
-                                            {item.newProduct.productData.attributes.map((item, index) => {
-                                                return(
-                                                    <div key={index}>
+                                        {item.newProduct.productData.attributes.map((item, index) => {
+                                            return (
+                                                <div key={index}>
                                                     <p>{item.id}:</p>
                                                     {item.items.map((a, i) => {
-                                                        return( 
-                                                            item.id !== 'Color' ? 
-                                                            <ListOfOptions key={i} 
-                                                            // propsOption1={option1} propsOption2={option2} propsOption3={option3} propsOption4={option4}
-                                                            paramId={a.id} paramName={item.id}
-                                                            onClick={() => this.props.handleCartChange(productId, a.id, item.id)}
-                                                            >
-                                                                {item.id !== 'Color' ? a.id : null}
-                                                            </ListOfOptions>
+                                                        return (
+                                                            item.id !== 'Color' ?
+                                                                <ListOfOptions key={i}
+                                                                    propsOption1={option1 === null ? null : option1} propsOption2={option2 === null ? null : option2} propsOption3={option3 === null ? null : option3}
+                                                                    paramId={a.id} paramName={item.id}
+                                                                    onClick={() => this.props.handleCartChange(productId, a.id, item.id)}
+                                                                >
+                                                                    {item.id !== 'Color' ? a.id : null}
+                                                                </ListOfOptions>
 
-                                                            :
+                                                                :
 
-                                                            <ListOfColors key={i} color={a.value} 
-                                                            // propsOption1={option1} propsOption2={option2} propsOption3={option3} 
-                                                            paramId={a.id} paramName={item.id}
-                                                            
-                                                            >
-                                                                {item.id !== 'Color' ? a.id : null}
-                                                            </ListOfColors>
+                                                                <ListOfColors key={i} color={a.value}
+                                                                    propsOption1={option1 === null ? null : option1} propsOption2={option2 === null ? null : option2} propsOption3={option3 === null ? null : option3}
+                                                                    paramId={a.id} paramName={item.id}
+                                                                    onClick={() => this.props.handleCartChange(productId, a.id, item.id)}
+                                                                >
+                                                                    {item.id !== 'Color' ? a.id : null}
+                                                                </ListOfColors>
                                                         )
                                                     })}
                                                 </div>
-                                                )
-                                            })}
+                                            )
+                                        })}
                                     </CartLeftSection>
 
                                     <CartRightSection>
 
-                                            <QuantitySection></QuantitySection>
+                                        <QuantitySection></QuantitySection>
 
-                                            <PhotoSection></PhotoSection>
+                                        <PhotoSection></PhotoSection>
 
                                     </CartRightSection>
 
                                 </ReturnedProduct>
-                                    
+
                             )
                         })}
 
