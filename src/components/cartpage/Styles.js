@@ -52,13 +52,11 @@ export const ListOfOptions = styled.button`
     ${({  propsOption1, propsOption2, propsOption3, newDataOption, paramName, paramId }) => propsOption1 === paramName+paramId ? 'background: var(--text-dark)'  : null};
     ${({  propsOption1, propsOption2, propsOption3, newDataOption, paramName, paramId }) => propsOption2 === paramName+paramId ? 'background: var(--text-dark)'  : null};
     ${({  propsOption1, propsOption2, propsOption3, newDataOption, paramName, paramId }) => propsOption3 === paramName+paramId ? 'background: var(--text-dark)'  : null};
-    ${({  propsOption1, propsOption2, propsOption3, newDataOption, paramName, paramId }) => newDataOption === paramName+paramId ? 'background: var(--text-dark)'  : null};
 
 
     ${({  propsOption1, propsOption2, propsOption3, newDataOption, paramName, paramId }) => propsOption1 === paramName+paramId ? 'color: var(--bg-primary)'  : null};
     ${({  propsOption1, propsOption2, propsOption3, newDataOption, paramName, paramId }) => propsOption2 === paramName+paramId ? 'color: var(--bg-primary)'  : null};
     ${({  propsOption1, propsOption2, propsOption3, newDataOption, paramName, paramId }) => propsOption3 === paramName+paramId ? 'color: var(--bg-primary)'  : null};
-    ${({  propsOption1, propsOption2, propsOption3, newDataOption, paramName, paramId }) => newDataOption === paramName+paramId ? 'color: var(--bg-primary)'  : null};
     font-size: 16px;
     border: 1px solid var(--text-dark);
     font-family: 'Source Sans Pro', sans-serif;

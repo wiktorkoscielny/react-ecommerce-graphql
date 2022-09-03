@@ -110,16 +110,21 @@ export default class App extends Component {
     const newData = param2 + param1
     if (!existingProduct) return
     else {
+
       this.state.storageOfProducts.products.map(item => {
         if (item.newProduct.id === productId) {
-          const found = item.newProduct.chosenOptions[0].indexOf(param2)
-          const xd = item.newProduct.chosenOptions.splice(found, 1)
-          item.newProduct.chosenOptions.push([param2, newData])
+          let index = null;
+          for (var i = 0; i < item.newProduct.chosenOptions.length; i++) {
+            if (item.newProduct.chosenOptions[i][0] === param2) {
+              index = i;
+              break;
+            }
+          }
+          item.newProduct.chosenOptions.splice(index, 1, [param2, newData])
         } return item
       })
-      // tamte rzeczy zmapowac ze stanu a opcje z propsa
-      const numberOfUpdating = 'stateUpdated'
-      this.setState({ stateUpdated: numberOfUpdating }) // force state update after mutating of array
+      const justUpdateTheState = 'stateUpdated'
+      this.setState({ stateUpdated: justUpdateTheState }) // force state update after mutating of array
     }
   }
   render() {
