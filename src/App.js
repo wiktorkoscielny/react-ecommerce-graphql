@@ -90,6 +90,7 @@ export default class App extends Component {
       id: productId,
       productData: productData,
       chosenOptions: filteredOptions,
+      slideHandler: 0
     }
 
     const existingProduct = this.state.storageOfProducts.products.find(el => el.newProduct.id === productId);
@@ -110,11 +111,10 @@ export default class App extends Component {
     const newData = param2 + param1
     if (!existingProduct) return
     else {
-
       this.state.storageOfProducts.products.map(item => {
         if (item.newProduct.id === productId) {
           let index = null;
-          for (var i = 0; i < item.newProduct.chosenOptions.length; i++) {
+          for (let i = 0; i < item.newProduct.chosenOptions.length; i++) {
             if (item.newProduct.chosenOptions[i][0] === param2) {
               index = i;
               break;
@@ -124,7 +124,44 @@ export default class App extends Component {
         } return item
       })
       const justUpdateTheState = 'stateUpdated'
-      this.setState({ stateUpdated: justUpdateTheState }) // force state update after mutating of array
+      this.setState({ stateUpdated: justUpdateTheState })
+    }
+  }
+  handlePhotoIncreament = (param) => {
+    const existingProduct = this.state.storageOfProducts.products.find(el => el.newProduct.id === param);
+    if (!existingProduct) return
+    else {
+      this.state.storageOfProducts.products.map(item => {
+        if (item.newProduct.id === param) {
+          const arrayLength = item.newProduct.productData.gallery.length - 2
+          if (item.newProduct.slideHandler <= arrayLength) {
+            item.newProduct.slideHandler++
+          } else if (item.newProduct.slideHandler === arrayLength + 1) {
+            item.newProduct.slideHandler = 0
+          }
+        } return item
+      })
+      const justUpdateTheState = 'stateUpdated'
+      this.setState({ ...this.state, stateUpdated: justUpdateTheState })
+    }
+  }
+  handlePhotoDecreament = (param) => {
+    const existingProduct = this.state.storageOfProducts.products.find(el => el.newProduct.id === param);
+    if (!existingProduct) return
+    else {
+      this.state.storageOfProducts.products.map(item => {
+        if (item.newProduct.id === param) {
+          const arrayLength = item.newProduct.productData.gallery.length - 1
+          if (item.newProduct.slideHandler <= arrayLength) {
+            item.newProduct.slideHandler--
+          }
+          if (item.newProduct.slideHandler < 0) {
+            item.newProduct.slideHandler = arrayLength
+          }
+        } return item
+      })
+      const justUpdateTheState = 'stateUpdated'
+      this.setState({ ...this.state, stateUpdated: justUpdateTheState })
     }
   }
   render() {
@@ -134,7 +171,7 @@ export default class App extends Component {
         <Routes>
           <Route path={`/details/${this.state.pathnameId}`} element={<DetailsPage productData={this.state.productId} currentCurrency={this.state.currentCurrency} storageOfProducts={this.state.storageOfProducts} handleProductAdd={this.handleProductAdd} />} />
           <Route exact path='/' element={<StartPage currencyData={this.state.currentCurrency} allCateg={this.state.allCateg} techCateg={this.state.techCateg} clothesCateg={this.state.clothesCateg} currentCategory={this.state.currentCategory} productClicked={this.props.productClicked} productIdCallback={this.handleProductIdCallback} />} />
-          <Route path={'/cart'} element={<CartPage storageOfProducts={this.state.storageOfProducts} currentCurrency={this.state.currentCurrency} handleCartChange={this.handleCartChange} />} />
+          <Route path={'/cart'} element={<CartPage storageOfProducts={this.state.storageOfProducts} currentCurrency={this.state.currentCurrency} handleCartChange={this.handleCartChange} handlePhotoIncreament={this.handlePhotoIncreament} handlePhotoDecreament={this.handlePhotoDecreament} />} />
         </Routes>
       </Router>
     )
