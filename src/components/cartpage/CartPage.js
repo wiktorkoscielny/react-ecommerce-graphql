@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 
-import { CartWrapper, CartProduct, CartLeftSection, ReturnedProduct, CartRightSection, ListOfOptions, ListOfColors, QuantitySection, TitleWrapper, PhotoSection, Summary } from './Styles'
+import { CartWrapper, CartProduct, CartLeftSection, ReturnedProduct, CartRightSection, PhotoContainer, ListOfOptions, ListOfColors, QuantitySection, TitleWrapper, PhotoSection, Summary, ImgBtnLeft, ImgBtnRight } from './Styles'
+
+// assets
+import SLIDERLEFT from '../assets/slider-left.png'
+import SLIDERRIGHT from '../assets/slider-right.png'
 
 export default class CartPage extends Component {
     constructor(props) {
@@ -18,7 +22,6 @@ export default class CartPage extends Component {
             productsAsProps: listOfProducts,
             chosenOptions: [chosenOptions]
         })
-        // console.log(JSON.stringify(listOfProducts.products[0].newProduct.chosenOptions))
     }
     currencySwitcher = (param) => {
         switch (this.props.currentCurrency) {
@@ -49,6 +52,7 @@ export default class CartPage extends Component {
                             const option1 = item.newProduct.chosenOptions[0] ? item.newProduct.chosenOptions[0][1] : null
                             const option2 = item.newProduct.chosenOptions[1] ? item.newProduct.chosenOptions[1][1] : null
                             const option3 = item.newProduct.chosenOptions[2] ? item.newProduct.chosenOptions[2][1] : null
+                            const number = item.newProduct.slideHandler
                             const productId = item.newProduct.id
                             return (
                                 <ReturnedProduct key={index}>
@@ -91,7 +95,30 @@ export default class CartPage extends Component {
 
                                         <QuantitySection></QuantitySection>
 
-                                        <PhotoSection></PhotoSection>
+                                        <PhotoSection>
+                                            <PhotoContainer>
+                                                <img src={item.newProduct.productData.gallery[number]} alt='current photo of product' />
+                                            </PhotoContainer>
+
+                                            {item.newProduct.productData.gallery.length > 1 ?
+                                                <ImgBtnLeft
+                                                    onClick={() => this.props.handlePhotoDecreament(productId)}
+                                                >
+                                                    <img src={SLIDERLEFT} alt='left arrow' />
+                                                </ImgBtnLeft>
+                                                :
+                                                null
+                                            }
+                                            {item.newProduct.productData.gallery.length > 1 ?
+                                                <ImgBtnRight
+                                                    onClick={() => this.props.handlePhotoIncreament(productId)}
+                                                >
+                                                    <img src={SLIDERRIGHT} alt='right arrow' />
+                                                </ImgBtnRight>
+                                                :
+                                                null
+                                            }
+                                        </PhotoSection>
 
                                     </CartRightSection>
 
@@ -114,5 +141,3 @@ export default class CartPage extends Component {
         )
     }
 }
-// propsOption1={option1} propsOption2={option2} propsOption3={option3}
-// onClick={() => this.setState({...this.state, [item.id]: item.id + i.id })}
