@@ -11,10 +11,12 @@ import CartPage from './components/cartpage/CartPage'
 import getCurrencies from './queries/GetCurriences';
 import getProduct from './queries/GetProducts';
 import getCategory from './queries/GetCategory';
-import getAllCategories from './queries/GetAllCategories';
+// import getAllCategories from './queries/GetAllCategories';
 
 export default class App extends Component {
   constructor(props) {
+    // local storage
+     
     super(props);
     this.state = {
       currencies: [{
@@ -32,7 +34,6 @@ export default class App extends Component {
       storageOfProducts: {
         products: []
       }
-
     }
   }
   componentDidMount = async () => {
@@ -54,15 +55,15 @@ export default class App extends Component {
     // })
 
     // products by categ
-    const techCateg = await JSON.parse(JSON.stringify((await getCategory('tech'))))
-    const clothesCateg = await JSON.parse(JSON.stringify((await getCategory('clothes'))))
-    const allCateg = await JSON.parse(JSON.stringify((await getCategory('all'))))
+    const techFetchedCateg = await JSON.parse(JSON.stringify((await getCategory('tech'))))
+    const clothesFetchedCateg = await JSON.parse(JSON.stringify((await getCategory('clothes'))))
+    const allFetchedCateg = await JSON.parse(JSON.stringify((await getCategory('all'))))
     this.setState({
       ...this.state,
-      techCateg: techCateg.category.products.map(product => [product]),
-      clothesCateg: clothesCateg.category.products.map(product => [product]),
+      techCateg: techFetchedCateg.category.products.map(product => [product]),
+      clothesCateg: clothesFetchedCateg.category.products.map(product => [product]),
       // allCateg: JSON.parse(JSON.stringify(allCateg)),
-      allCateg: allCateg.category.products.map(product => [product])
+      allCateg: allFetchedCateg.category.products.map(product => [product])
     })
   }
   currencySymbolChanger(e) {
@@ -90,21 +91,23 @@ export default class App extends Component {
       id: productId,
       productData: productData,
       chosenOptions: filteredOptions,
-      slideHandler: 0
+      slideHandler: 0,
+      quantity: 1
     }
-
     const existingProduct = this.state.storageOfProducts.products.find(el => el.newProduct.id === productId);
     if (existingProduct) {
-      return alert('This product has already been added to cart')
+      return alert('This product has already been added to cart') // create a jsx div instead of alerts
+    } else if (newProduct.chosenOptions.length !== newProduct.productData.attributes.length) {
+      return alert('Choose product options') // create a jsx div instead of alerts
     } else {
       this.setState({
         ...this.state,
         storageOfProducts: {
           products: [...this.state.storageOfProducts.products, { newProduct }]
-        }
+        },
+        totalQuantity: this.state.totalQuantity + newProduct.quantity
       })
     }
-
   }
   handleCartChange = (productId, param1, param2) => {
     const existingProduct = this.state.storageOfProducts.products.find(el => el.newProduct.id === productId);
@@ -124,7 +127,7 @@ export default class App extends Component {
         } return item
       })
       const justUpdateTheState = 'stateUpdated'
-      this.setState({ stateUpdated: justUpdateTheState })
+      this.setState({ ...this.state, stateUpdated: justUpdateTheState })
     }
   }
   handlePhotoIncreament = (param) => {
@@ -141,8 +144,7 @@ export default class App extends Component {
           }
         } return item
       })
-      const justUpdateTheState = 'stateUpdated'
-      this.setState({ ...this.state, stateUpdated: justUpdateTheState })
+      this.forceUpdate()
     }
   }
   handlePhotoDecreament = (param) => {
@@ -160,9 +162,28 @@ export default class App extends Component {
           }
         } return item
       })
-      const justUpdateTheState = 'stateUpdated'
-      this.setState({ ...this.state, stateUpdated: justUpdateTheState })
+      this.forceUpdate()
     }
+  }
+  quantityAdd = (param) => {
+    this.state.storageOfProducts.products.map(item => {
+      if (item.newProduct.id === param) {
+        item.newProduct.quantity++
+      } return item
+    })
+    this.forceUpdate()
+  }
+  quantitySubtract = (param) => {
+    this.state.storageOfProducts.products.map(item => {
+      if (item.newProduct.id === param) {
+        if (item.newProduct.quantity === 1) {
+          this.state.storageOfProducts.products.splice(item, 1)
+        } else if (item.newProduct.quantity > 0 ) {
+          item.newProduct.quantity--
+        }
+      } return item
+    })
+    this.forceUpdate()
   }
   render() {
     return (
@@ -171,7 +192,7 @@ export default class App extends Component {
         <Routes>
           <Route path={`/details/${this.state.pathnameId}`} element={<DetailsPage productData={this.state.productId} currentCurrency={this.state.currentCurrency} storageOfProducts={this.state.storageOfProducts} handleProductAdd={this.handleProductAdd} />} />
           <Route exact path='/' element={<StartPage currencyData={this.state.currentCurrency} allCateg={this.state.allCateg} techCateg={this.state.techCateg} clothesCateg={this.state.clothesCateg} currentCategory={this.state.currentCategory} productClicked={this.props.productClicked} productIdCallback={this.handleProductIdCallback} />} />
-          <Route path={'/cart'} element={<CartPage storageOfProducts={this.state.storageOfProducts} currentCurrency={this.state.currentCurrency} handleCartChange={this.handleCartChange} handlePhotoIncreament={this.handlePhotoIncreament} handlePhotoDecreament={this.handlePhotoDecreament} />} />
+          <Route path={'/cart'} element={<CartPage storageOfProducts={this.state.storageOfProducts} currentCurrency={this.state.currentCurrency} handleCartChange={this.handleCartChange} handlePhotoIncreament={this.handlePhotoIncreament} handlePhotoDecreament={this.handlePhotoDecreament} quantityAdd={this.quantityAdd} quantitySubtract={this.quantitySubtract} totalQuantity={this.state.totalQuantity} />} />
         </Routes>
       </Router>
     )
