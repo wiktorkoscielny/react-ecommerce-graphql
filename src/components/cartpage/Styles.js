@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 export const CartWrapper = styled.div`
     padding-top: 50px;
     display: grid;
@@ -53,14 +54,12 @@ export const ListOfOptions = styled.button`
     margin-right: 5px;
     background: var(--bg-primary);
     color: var(--text-dark);
-    ${({ propsOption1, propsOption2, propsOption3, newDataOption, paramName, paramId }) => propsOption1 === paramName + paramId ? 'background: var(--text-dark)' : null};
-    ${({ propsOption1, propsOption2, propsOption3, newDataOption, paramName, paramId }) => propsOption2 === paramName + paramId ? 'background: var(--text-dark)' : null};
-    ${({ propsOption1, propsOption2, propsOption3, newDataOption, paramName, paramId }) => propsOption3 === paramName + paramId ? 'background: var(--text-dark)' : null};
-
-
-    ${({ propsOption1, propsOption2, propsOption3, newDataOption, paramName, paramId }) => propsOption1 === paramName + paramId ? 'color: var(--bg-primary)' : null};
-    ${({ propsOption1, propsOption2, propsOption3, newDataOption, paramName, paramId }) => propsOption2 === paramName + paramId ? 'color: var(--bg-primary)' : null};
-    ${({ propsOption1, propsOption2, propsOption3, newDataOption, paramName, paramId }) => propsOption3 === paramName + paramId ? 'color: var(--bg-primary)' : null};
+    ${({ propsOption1, paramName, paramId }) => propsOption1 === paramName + paramId ? 'background: var(--text-dark)' : null};
+    ${({ propsOption2, paramName, paramId }) => propsOption2 === paramName + paramId ? 'background: var(--text-dark)' : null};
+    ${({ propsOption3, paramName, paramId }) => propsOption3 === paramName + paramId ? 'background: var(--text-dark)' : null};
+    ${({ propsOption1, paramName, paramId }) => propsOption1 === paramName + paramId ? 'color: var(--bg-primary)' : null};
+    ${({ propsOption2, paramName, paramId }) => propsOption2 === paramName + paramId ? 'color: var(--bg-primary)' : null};
+    ${({ propsOption3, paramName, paramId }) => propsOption3 === paramName + paramId ? 'color: var(--bg-primary)' : null};
     font-size: 16px;
     border: 1px solid var(--text-dark);
     font-family: 'Source Sans Pro', sans-serif;
