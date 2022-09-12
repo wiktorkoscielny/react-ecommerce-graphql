@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom'
+// components
+import Dropdown from './Dropdown';
 // style
 import './Navbar.css';
 // imgs
@@ -12,6 +13,7 @@ export default class Navbar extends Component {
     super(props);
     this.state = {
       currencyData: [],
+      toggler: false,
     }
   }
   componentDidMount() {
@@ -27,6 +29,12 @@ export default class Navbar extends Component {
     { value: this.props.data[0].symbol[3], text: '¥' },
     { value: this.props.data[0].symbol[4], text: '₽' },
   ]
+  dropdownToggler = () => {
+    this.setState(prevState => ({
+      ...this.state,
+      toggler: !prevState.toggler
+    }))
+  }
   render() {
     return (
       <nav>
@@ -78,7 +86,23 @@ export default class Navbar extends Component {
             </select>
 
 
-            <button><Link to='/cart' ><img src={CART} alt='shopping cart button' /></Link></button>
+            <button className='cart__btn'
+            onClick={() => this.dropdownToggler()}
+            >
+              <img src={CART} alt='shopping cart button' />
+            </button>
+            <div className={this.props.quantityOfProducts > 0 ? 'floating__btn active__btn' : 'floating__btn'}>
+              {this.props.quantityOfProducts}
+            </div>
+
+            
+              <div className={this.state.toggler ? 'dropdown__wrapper dropdown__wrapper__active' : 'dropdown__wrapper'}>
+                <div className={this.state.toggler ? 'dropdown__menu dropdown__visible' : 'dropdown__menu'}>
+                  <Dropdown storageOfProducts={this.props.storageOfProducts} currentCurrency={this.props.currentCurrency} handleCartChange={this.props.handleCartChange} handlePhotoIncreament={this.props.handlePhotoIncreament} handlePhotoDecreament={this.props.handlePhotoDecreament} quantityAdd={this.props.quantityAdd} quantitySubtract={this.props.quantitySubtract} totalQuantity={this.props.totalQuantity}/>
+                </div>
+              </div>
+            
+            {/* <button><Link to='/cart' ><img src={CART} alt='shopping cart button' /></Link></button> */}
           </div>
         </div>
       </nav>

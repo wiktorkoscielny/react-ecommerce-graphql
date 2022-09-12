@@ -1,5 +1,5 @@
 nav {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     overflow: hidden;
@@ -8,6 +8,7 @@ nav {
     font-weight: 600;
     font-size: 16px;
     line-height: 19.2px;
+    z-index: 99;
 }
 .nav__wrapper {
     padding: 0 100px 0 100px;
@@ -90,4 +91,60 @@ nav {
     background: url(../assets/vector.png) no-repeat;
     background-position: 100%;
     cursor: pointer;
+}
+
+.floating__btn {
+    visibility: hidden;
+    display: flex;
+    position: absolute;
+    z-index: 100;
+    border: 2px solid #000000;
+    color: #fff;
+    background: #000000;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    font-size: .8rem;
+    height: 16px;
+    width: 16px;
+    padding: auto;
+    top: 23px;
+    right: 108px;
+}
+
+.active__btn {
+    visibility: visible;
+}
+
+.dropdown__wrapper{
+    visibility: hidden;
+    position: fixed;
+    padding: 0;
+    margin: 0;
+    background: rgba(0, 0, 0, 0.4);
+    width: 100vw;
+    height: 100vh;
+    z-index: 101;
+    left: 0;
+    top: 80px;
+}
+.dropdown__wrapper__active {
+    visibility: visible;
+}
+.dropdown__menu {
+    position: absolute;
+    background: rgba(255, 255, 255, 1);
+    z-index: 102;
+    width: 425px;
+    height: 0;
+    right: 40px;
+    visibility: hidden;
+    opacity: 0;
+    overflow: hidden;
+}
+.dropdown__visible {
+    opacity: 1;
+    visibility: visible;    
+    height: 477px;
+    transition: height 100ms 100ms, opacity 200ms 0ms;
 }
