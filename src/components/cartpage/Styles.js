@@ -218,7 +218,6 @@ export const Summary = styled.div`
             font-size: 24px;
             font-weight: 400;
             line-height: 40px;
-
         }
 `
 export const ButtonOrder = styled.button`
