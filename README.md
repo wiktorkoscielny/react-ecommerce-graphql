@@ -8,5 +8,5 @@ The last thing i have to do is to create cart tab where i will handle added prod
 
 I have not used any libraries apart from styled-components && opus
 
-https://user-images.githubusercontent.com/81425551/189954461-58edd0dc-38b3-4577-b1e8-eedc4142403a.mp4
+https://user-images.githubusercontent.com/81425551/189956217-10b2017e-bffb-43bc-80b8-65e78825098f.mp4
 
