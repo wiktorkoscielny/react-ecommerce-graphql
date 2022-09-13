@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom'
 export const MainWrapper = styled.div`
-    margin-top: 80px;
+    margin-top: 50px;
     margin-bottom: 100px;
         h1 {
             height: 50px;
@@ -30,7 +30,8 @@ export const ListItem = styled.li`
     display: inline;
     position: relative;
     cursor: pointer;
-    padding: 0 0 50px 0;
+    padding: 0;
+    margin=bottom: 40px;
     text-align: center;
 `
 export const ImgWrapper = styled.div`
@@ -57,6 +58,8 @@ export const TextWrapper = styled.div`
 export const FloatingCart = styled.div`
     visibility: hidden;
     position: absolute;
+    opacity: 0;
+    transition:visibility 0.3s linear,opacity 0.3s linear;
     top:280px;
     right: 10px;
     height: 52px;
@@ -76,11 +79,13 @@ export const FloatingCart = styled.div`
 export const StyledLink = styled(Link)`
     border: 20px solid transparent;
     text-decoration: none;
+    transition: box-shadow .3s;
     :hover {
         -webkit-box-shadow: 0px 0px 14px 5px rgba(0,0,0,0.1); 
         box-shadow: 0px 0px 14px 5px rgba(0,0,0,0.1);
     }
     &:hover ${FloatingCart} {
         visibility: visible;
+        opacity: 1;
     }
 `

@@ -1,5 +1,18 @@
 nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    background: var(--bg-primary);
+    width: 100%;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19.2px;
+    z-index: 99;
+}
+.nav__active {
     position: fixed;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
     top: 0;
     left: 0;
     overflow: hidden;
@@ -56,15 +69,49 @@ nav {
 }
 .buttons__section {
     width: 33%;
-    text-align: right;
     position: relative;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
 }
-.nav__bttns{
-    display: inline;
-    width: auto;
+
+/* CUSTOM SELECT */
+.custom__select{
+    background: red;
+    width: 50px;
+    height: 30px;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    display: inline-block;
+    position: relative;
+
 }
+
+.u__select {
+    position: absolute;
+    z-index: 1000000000;
+    background: yellow;
+}
+
+.l__select {
+
+    z-index: 1000000000;
+
+}
+
+/* CUSTOM SELECT */
+
+.nav__bttns {
+    display: inline-block;
+    min-width: 50px;
+    min-height: 30px;
+}
+
+
+
 .nav__bttns:nth-child(1) {
-    margin-right: 20px;
+    /* margin-right: 20px; */
 }
 .nav__bttns:nth-child(2) button {
     background: none;
@@ -76,10 +123,10 @@ nav {
 }
 .nav__bttns:nth-child(2) > button > img {
     top: 25%;
-    -ms-transform: translateY(25%);
-    transform: translateY(25%);
+    -ms-transform: translateY(15%);
+    transform: translateY(15%);
 }
-#nav__select {
+/* #nav__select {
     appearance: none;
     background-color: transparent;
     font-size: 18px;
@@ -93,7 +140,7 @@ nav {
     background: url(../assets/vector.png) no-repeat;
     background-position: 100%;
     cursor: pointer;
-}
+} */
 
 .floating__btn {
     visibility: hidden;
@@ -111,7 +158,7 @@ nav {
     width: 16px;
     padding: auto;
     top: -5px;
-    right: -5px;
+    right: 10px;
 }
 
 .active__btn {

@@ -14,12 +14,15 @@ export default class Navbar extends Component {
     this.state = {
       currencyData: [],
       toggler: false,
+      scrolled: false,
+      isSelected: false
     }
     this.wrapperRef = React.createRef();
     this.handleClickOutside = this.handleClickOutside.bind(this);
   }
   componentDidMount() {
     const props = this.props.data
+    window.addEventListener('scroll', this.handleScroll);
     this.setState({
       currencyData: props
     })
@@ -48,9 +51,22 @@ export default class Navbar extends Component {
       }))
     }
   }
+  handleScroll = () => {
+    const offset = window.scrollY;
+    if (window.scrollY >= 100) {
+      this.setState({scrolled: true})
+    } else {
+      this.setState({scrolled: false})
+    }
+  }
+  handleSelect = () => {
+    this.setState(prevState => ({
+      isSelected: !prevState.isSelected
+    }))
+  }
   render() {
     return (
-      <nav>
+      <nav className={this.state.scrolled === false ? null : 'nav nav__active'}>
         <div className='nav__wrapper'>
           <div className='category__section'>
             <ul>
@@ -86,14 +102,23 @@ export default class Navbar extends Component {
           <div className='logo__section'><Link to='/'><img src={LOGO} alt='logo' /></Link></div>
           <div className='buttons__section'>
 
-            <div className='nav__bttns'>
-              <select value={this.props.currencySymbol} onChange={this.props.handleOnChange} id='nav__select'>
+            
+              {/* <div className='custom-select'>
+                <select value={this.props.currencySymbol} onChange={this.props.handleOnChange} id='nav__select'>
                 {this.currencySymbolOptions.map((option, index) => (
                   <option key={index} value={option.value}>
                     {option.text}
                   </option>
                 ))}
               </select>
+              </div> */}
+            <div className='custom__select' onClick={this.handleSelect}>
+              <ul className='u__select'>
+                <li className='l__select'>1</li>
+                <li className='l__select'>1</li>
+                <li className='l__select'>1</li>
+                <li className='l__select'>1</li> 
+              </ul>
             </div>
             <div className={this.state.toggler === true ? 'nav__bttns bttns__disabled' : 'nav__bttns'}>
               <button
