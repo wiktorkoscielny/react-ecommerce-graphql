@@ -1,5 +1,18 @@
 nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    background: var(--bg-primary);
+    width: 100%;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19.2px;
+    z-index: 99;
+}
+.nav__active {
     position: fixed;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
     top: 0;
     left: 0;
     overflow: hidden;

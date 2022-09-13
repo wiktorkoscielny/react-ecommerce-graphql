@@ -20,6 +20,7 @@ export default class Navbar extends Component {
   }
   componentDidMount() {
     const props = this.props.data
+    window.addEventListener('scroll', this.handleScroll);
     this.setState({
       currencyData: props
     })
@@ -48,9 +49,17 @@ export default class Navbar extends Component {
       }))
     }
   }
+  handleScroll = () => {
+    const offset = window.scrollY;
+    if (window.scrollY >= 100) {
+      this.setState({scrolled: true})
+    } else {
+      this.setState({scrolled: false})
+    }
+  }
   render() {
     return (
-      <nav>
+      <nav className={this.state.scrolled === false ? null : 'nav nav__active'}>
         <div className='nav__wrapper'>
           <div className='category__section'>
             <ul>
