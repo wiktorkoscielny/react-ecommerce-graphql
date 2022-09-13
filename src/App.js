@@ -177,6 +177,7 @@ export default class App extends Component {
     this.state.storageOfProducts.products.map(item => {
       if (item.newProduct.id === param) {
         if (item.newProduct.quantity === 1) {
+          /// FIRST FIND INDEX OF ITEM AND THEN SPLICE COUSE SPLICE NOT HAVING i ONLY REMOVES FIRST ELEMENT!!!!!!!!!!!!!!
           this.state.storageOfProducts.products.splice(item, 1)
         } else if (item.newProduct.quantity > 0 ) {
           item.newProduct.quantity--
