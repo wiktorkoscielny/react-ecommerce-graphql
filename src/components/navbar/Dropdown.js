@@ -1,21 +1,16 @@
 import { Component } from "react"
+import { Link } from 'react-router-dom'
 // styles
-import {CartWrapper, TitleWrapper, CartProduct, ReturnedProduct, CartLeftSection, ListOfOptions, ListOfColors, CartRightSection, QuantitySection, ButtonAdd, ImgOne, ImgTwo, Quantity, ButtonRemove, PhotoSection, PhotoContainer, Summary} from './DropdownStyles'
+import {CartWrapper, TitleWrapper, CartProduct, ReturnedProduct, Buttons, ButtonOne, ButtonTwo, CartLeftSection, ListOfOptions, ListOfColors, CartRightSection, QuantitySection, ButtonAdd, ImgOne, ImgTwo, Quantity, ButtonRemove, PhotoSection, PhotoContainer, Summary} from './DropdownStyles'
 // assets
-import SLIDERLEFT from '../assets/slider-left.png'
-import SLIDERRIGHT from '../assets/slider-right.png'
 import PLUS from '../assets/plus.png'
 import MINUS from '../assets/minus.png'
-import horizontalVector from '../assets/VectorHorizontal.jpg'
-import verticalVector from '../assets/VectorWertical.jpg'
 
 export default class Dropdown extends Component {
     constructor(props) {
         super(props);
         this.state = {}
       }
-
-
       currencySwitcher = (param) => {
         switch (this.props.currentCurrency) {
             case '$':
@@ -45,13 +40,10 @@ export default class Dropdown extends Component {
         }
     }
     render() {
-        const totalQuantity = (this.props.storageOfProducts.products.reduce((total,currentItem) =>  total = total + currentItem.newProduct.quantity , 0));
-        const totalAmount = this.props.storageOfProducts.products.reduce((total,currentItem) => total = total + (currentItem.newProduct.productData.prices[this.currencyNumber()].amount * currentItem.newProduct.quantity) , 0)
-        const tax = totalAmount * 0.21
-        const totalAmountWthTax = totalAmount + tax
-        const roundedTax = tax.toFixed(2)
-        const roundedSum = totalAmountWthTax.toFixed(2)
-        const product = this.props.storageOfProducts
+        const totalAmount = this.props.storageOfProducts.products.reduce((total,currentItem) => 
+            total = total + (currentItem.newProduct.productData.prices[this.currencyNumber()].amount * currentItem.newProduct.quantity) , 0),
+            roundedSum = totalAmount.toFixed(2),
+            product = this.props.storageOfProducts
         return (
             <CartWrapper>
                     <TitleWrapper>
@@ -101,15 +93,14 @@ export default class Dropdown extends Component {
                                                 )
                                             })}
                                         </CartLeftSection>
-                                        {/* <CartRightSection>
+                                        <CartRightSection>
                                             <QuantitySection>
                                                 <ButtonAdd onClick={() => this.props.quantityAdd(productId)}>
-                                                    <ImgOne><img src={horizontalVector} alt='Horizontal vector' /></ImgOne>
-                                                    <ImgTwo><img src={horizontalVector} alt='Vertical vector' /></ImgTwo>
+                                                    <ImgOne><img src={PLUS} alt='Horizontal vector' /></ImgOne>
                                                 </ButtonAdd>
                                                 <Quantity><p>{item.newProduct.quantity}</p></Quantity>
                                                 <ButtonRemove onClick={() => this.props.quantitySubtract(productId)}>
-                                                    <ImgOne><img src={horizontalVector} alt='Horizontal vector' /></ImgOne>
+                                                    <ImgTwo><img src={MINUS} alt='Horizontal vector' /></ImgTwo>
                                                 </ButtonRemove>
                                             </QuantitySection>
                                             <PhotoSection>
@@ -119,22 +110,21 @@ export default class Dropdown extends Component {
 
                                             </PhotoSection>
 
-                                        </CartRightSection> */}
+                                        </CartRightSection>
 
                                     </ReturnedProduct>
 
                                 )
                             })
-
-
                         }
-
                     </CartProduct>
-
                     <Summary>
-                    
+                        <p>Total</p> <p>{this.props.currentCurrency}{roundedSum}</p>
                     </Summary>
-
+                    <Buttons>
+                        <ButtonOne onClick={this.props.dropdownToggler}><Link to='/cart'><button>view bag</button></Link></ButtonOne>
+                        <ButtonTwo><button>checkout</button></ButtonTwo>
+                    </Buttons>
                 </CartWrapper>
         )
     }

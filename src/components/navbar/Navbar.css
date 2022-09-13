@@ -42,7 +42,7 @@ nav {
     text-transform: uppercase;
 }
 .selected {
-    border-bottom: 2px solid var(--light-green);
+    border-bottom: 3px solid var(--light-green);
     color: var(--light-green);
     padding: 0 0 20px 0;
 }
@@ -57,22 +57,24 @@ nav {
 .buttons__section {
     width: 33%;
     text-align: right;
+    position: relative;
 }
-.buttons__section button{
+.nav__bttns{
+    display: inline;
+    width: auto;
+}
+.nav__bttns:nth-child(1) {
+    margin-right: 20px;
+}
+.nav__bttns:nth-child(2) button {
     background: none;
     border: none;
     cursor: pointer;
-    margin-right: 30px;
 }
-.buttons__section > button > img {
-    color: var(--text-dark);
+.bttns__disabled {
+    pointer-events: none;
 }
-.buttons__section button:nth-child(1){
-}
-.buttons__section button:nth-child(2){
-    width: 20px;
-    height: 20px;
-    padding-left: 30px;
+.nav__bttns:nth-child(2) > button > img {
     top: 25%;
     -ms-transform: translateY(25%);
     transform: translateY(25%);
@@ -108,8 +110,8 @@ nav {
     height: 16px;
     width: 16px;
     padding: auto;
-    top: 23px;
-    right: 108px;
+    top: -5px;
+    right: -5px;
 }
 
 .active__btn {
@@ -147,4 +149,5 @@ nav {
     visibility: visible;    
     height: 477px;
     transition: height 100ms 100ms, opacity 200ms 0ms;
+    overflow-y: scroll;
 }

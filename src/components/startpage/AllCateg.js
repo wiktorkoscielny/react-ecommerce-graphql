@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 
 // styles
-import { ListWrapper, ListItem, ImgWrapper } from './Styles';
+import { ListWrapper, ListItem, ImgWrapper, MainWrapper, StyledLink, FloatingCart, TextWrapper } from './Styles';
+
+// assets
+import SmallCart from '../assets/white-cart.png'
 
 export default class AllCateg extends Component {
     constructor(props) {
@@ -35,28 +37,37 @@ export default class AllCateg extends Component {
     }
     render() {
         return (
-            <>
+            <MainWrapper>
+                <h1>Tech</h1>
                 <ListWrapper>
                     {this.props.allCateg.map((item, index) => {
                         return (
-                            <Link
+                            <StyledLink
                                 to={`/details/${item[0].id}`}
                                 key={index}
-                                style={{textDecoration: 'none'}}
                             >
-                                <ListItem onClick={() => this.props.productIdCallback(item[0].id)}>
-                                    <ImgWrapper src={item[0].gallery}></ImgWrapper>
-                                    <p>{item[0].name}</p>
-                                    <p>
-                                        {this.props.currencyData}
-                                        {this.currencySwitcher(item[0])}
-                                    </p>
+                                <ListItem
+                                    onClick={() => this.props.productIdCallback(item[0].id)}
+                                >
+                                    <ImgWrapper>
+                                        <img src={item[0].gallery}></img>
+                                    </ImgWrapper>
+                                    <TextWrapper>
+                                        <p>{item[0].name}</p>
+                                        <p>
+                                            {this.props.currencyData}
+                                            {this.currencySwitcher(item[0])}
+                                        </p>
+                                    </TextWrapper>
+                                    <FloatingCart>   
+                                        <img src={SmallCart}></img>
+                                    </FloatingCart>
                                 </ListItem>
-                            </Link>
+                            </StyledLink>
                         )
                     })}
                 </ListWrapper>
-            </>
+            </MainWrapper>
         )
     }
 }
