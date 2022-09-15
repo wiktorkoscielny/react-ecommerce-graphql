@@ -53,7 +53,7 @@ export default class Navbar extends Component {
   }
   handleScroll = () => {
     const offset = window.scrollY;
-    if (window.scrollY >= 100) {
+    if (offset >= 0.01) {
       this.setState({scrolled: true})
     } else {
       this.setState({scrolled: false})
