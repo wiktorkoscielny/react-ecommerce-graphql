@@ -23,7 +23,7 @@ export default class App extends Component {
         label: [],
         symbol: [],
       }],
-      currentCurrency: [],
+      currentCurrency: '$',
       techCateg: [],
       clothesCateg: [],
       allCateg: [],
@@ -37,6 +37,10 @@ export default class App extends Component {
     }
   }
   componentDidMount = async () => {
+    // localStorage
+    const localCurrentCurrency = localStorage.getItem('currentCurrency')
+    const localCurrentCategory = localStorage.getItem('currentCategory')
+    const localStorageOfProducts = localStorage.getItem('storageOfProducts')
     // currencies
     const resultCurrencies = await JSON.parse(JSON.stringify((await getCurrencies())))
     this.setState({
@@ -45,8 +49,15 @@ export default class App extends Component {
         label: resultCurrencies.currencies.map(label => [label.label]),
         symbol: resultCurrencies.currencies.map(symbol => [symbol.symbol])
       }],
-      currentCurrency: resultCurrencies.currencies[0].symbol[0]
+        currentCurrency: localCurrentCurrency,
+        currentCategory: localCurrentCategory
     });
+    if (localStorageOfProducts) {
+        this.setState({
+          ...this.state,
+          storageOfProducts: JSON.parse(localStorageOfProducts)
+        })
+    }
     // all categories
     // const allCategory = await JSON.parse(JSON.stringify((await getAllCategories())))
     // this.setState({
@@ -70,6 +81,7 @@ export default class App extends Component {
       this.setState({
         currentCurrency: value
       })
+      localStorage.setItem('currentCurrency', value)
   }
   toggleClicked = (param) => {
     const current = param
@@ -77,6 +89,7 @@ export default class App extends Component {
       ...this.state,
       currentCategory: current
     })
+    localStorage.setItem('currentCategory', current)
   }
   handleProductIdCallback = async (childData) => {
     const product = await JSON.parse(JSON.stringify((await getProduct(childData))))
@@ -107,7 +120,8 @@ export default class App extends Component {
           products: [...this.state.storageOfProducts.products, { newProduct }]
         },
         totalQuantity: this.state.totalQuantity + newProduct.quantity
-      })
+      }, () => localStorage.setItem('storageOfProducts', JSON.stringify(this.state.storageOfProducts))
+      )
     }
   }
   handleCartChange = (productId, param1, param2) => {
@@ -203,6 +217,8 @@ export default class App extends Component {
     }
   }
   render() {
+    // const parsed = JSON.parse(this.state.storageOfProducts.products) === [] || this.state.storageOfProducts.products === [] ? null : this.state.storageOfProducts
+    // const length = parsed === null ? 0 : parsed.products.length
     return (
       <Router>
         <Navbar handleOnChange={this.currencySymbolChanger} data={this.state.currencies} toggleClicked={this.toggleClicked} currentCateg={this.state.currentCategory} quantityOfProducts={this.state.storageOfProducts.products.length} storageOfProducts={this.state.storageOfProducts} currentCurrency={this.state.currentCurrency} handleCartChange={this.handleCartChange} handlePhotoIncreament={this.handlePhotoIncreament} handlePhotoDecreament={this.handlePhotoDecreament} quantityAdd={this.quantityAdd} quantitySubtract={this.quantitySubtract} totalQuantity={this.state.totalQuantity}/>
