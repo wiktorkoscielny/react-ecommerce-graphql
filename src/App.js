@@ -178,7 +178,9 @@ export default class App extends Component {
     this.state.storageOfProducts.products.map(item => {
       if (item.newProduct.id === param) {
         if (item.newProduct.quantity === 1) {
-          this.state.storageOfProducts.products.splice(item, 1)
+          const find = this.state.storageOfProducts.products.find(el => el.newProduct.id === param)
+          const index = this.state.storageOfProducts.products.indexOf(find)
+          this.state.storageOfProducts.products.splice(index, 1)
         } else if (item.newProduct.quantity > 0 ) {
           item.newProduct.quantity--
         }
