@@ -23,7 +23,7 @@ export default class App extends Component {
         label: [],
         symbol: [],
       }],
-      currentCurrency: '',
+      currentCurrency: [],
       techCateg: [],
       clothesCateg: [],
       allCateg: [],
@@ -66,9 +66,10 @@ export default class App extends Component {
       allCateg: allFetchedCateg.category.products.map(product => [product])
     })
   }
-  currencySymbolChanger(e) {
-    e.preventDefault();
-    this.setState({ ...this.state, currentCurrency: e.target.value })
+  currencySymbolChanger = (value) => {
+      this.setState({
+        currentCurrency: value
+      })
   }
   toggleClicked = (param) => {
     const current = param
@@ -187,13 +188,27 @@ export default class App extends Component {
     })
     this.forceUpdate()
   }
+  currencySwitcher = (param) => {
+    switch (this.state.currentCurrency) {
+        case '$':
+            return <>{param.prices[0].amount}</>
+        case '£':
+            return <>{param.prices[1].amount}</>
+        case 'A$':
+            return <>{param.prices[2].amount}</>
+        case '¥':
+            return <>{param.prices[3].amount}</>
+        case '₽':
+            return <>{param.prices[4].amount}</>
+    }
+  }
   render() {
     return (
       <Router>
-        <Navbar handleOnChange={(e) => this.currencySymbolChanger(e)} data={this.state.currencies} toggleClicked={this.toggleClicked} currentCateg={this.state.currentCategory} quantityOfProducts={this.state.storageOfProducts.products.length} storageOfProducts={this.state.storageOfProducts} currentCurrency={this.state.currentCurrency} handleCartChange={this.handleCartChange} handlePhotoIncreament={this.handlePhotoIncreament} handlePhotoDecreament={this.handlePhotoDecreament} quantityAdd={this.quantityAdd} quantitySubtract={this.quantitySubtract} totalQuantity={this.state.totalQuantity}/>
+        <Navbar handleOnChange={this.currencySymbolChanger} data={this.state.currencies} toggleClicked={this.toggleClicked} currentCateg={this.state.currentCategory} quantityOfProducts={this.state.storageOfProducts.products.length} storageOfProducts={this.state.storageOfProducts} currentCurrency={this.state.currentCurrency} handleCartChange={this.handleCartChange} handlePhotoIncreament={this.handlePhotoIncreament} handlePhotoDecreament={this.handlePhotoDecreament} quantityAdd={this.quantityAdd} quantitySubtract={this.quantitySubtract} totalQuantity={this.state.totalQuantity}/>
         <Routes>
           <Route path={`/details/${this.state.pathnameId}`} element={<DetailsPage productData={this.state.productId} currentCurrency={this.state.currentCurrency} storageOfProducts={this.state.storageOfProducts} handleProductAdd={this.handleProductAdd} />} />
-          <Route exact path='/' element={<StartPage currencyData={this.state.currentCurrency} allCateg={this.state.allCateg} techCateg={this.state.techCateg} clothesCateg={this.state.clothesCateg} currentCategory={this.state.currentCategory} productClicked={this.props.productClicked} productIdCallback={this.handleProductIdCallback} />} />
+          <Route exact path='/' element={<StartPage currencySwitcher={this.currencySwitcher} currencyData={this.state.currentCurrency} allCateg={this.state.allCateg} techCateg={this.state.techCateg} clothesCateg={this.state.clothesCateg} currentCategory={this.state.currentCategory} productClicked={this.props.productClicked} productIdCallback={this.handleProductIdCallback} />} />
           <Route path={'/cart'} element={<CartPage storageOfProducts={this.state.storageOfProducts} currentCurrency={this.state.currentCurrency} handleCartChange={this.handleCartChange} handlePhotoIncreament={this.handlePhotoIncreament} handlePhotoDecreament={this.handlePhotoDecreament} quantityAdd={this.quantityAdd} quantitySubtract={this.quantitySubtract} totalQuantity={this.state.totalQuantity} />} />
         </Routes>
       </Router>

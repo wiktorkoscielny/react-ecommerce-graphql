@@ -25,11 +25,11 @@ export default class StartPage extends Component {
   renderSwitch = () => {
     switch(this.props.currentCategory) {
       case 'all':
-        return <AllCateg allCateg={this.props.allCateg} currencyData={this.props.currencyData} productIdCallback={this.props.productIdCallback}/>;
+        return <AllCateg allCateg={this.props.allCateg} currencyData={this.props.currencyData} currencySwitcher={this.props.currencySwitcher} productIdCallback={this.props.productIdCallback}/>;
       case 'tech':
-        return <TechCateg techCateg={this.props.techCateg} currencyData={this.props.currencyData} productIdCallback={this.props.productIdCallback}/>;
+        return <TechCateg techCateg={this.props.techCateg} currencyData={this.props.currencyData} currencySwitcher={this.props.currencySwitcher} productIdCallback={this.props.productIdCallback}/>;
       case 'clothes':
-        return <ClothesCateg clothesCateg={this.props.clothesCateg} currencyData={this.props.currencyData} productIdCallback={this.props.productIdCallback}/>
+        return <ClothesCateg clothesCateg={this.props.clothesCateg} currencyData={this.props.currencyData} currencySwitcher={this.props.currencySwitcher} productIdCallback={this.props.productIdCallback}/>
       }
   }
   render() {

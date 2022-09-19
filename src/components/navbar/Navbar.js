@@ -4,9 +4,11 @@ import { Link } from 'react-router-dom'
 import Dropdown from './Dropdown';
 // style
 import './Navbar.css';
-// imgs
+// assets
 import LOGO from '../assets/logo.png'
 import CART from '../assets/empty-cart.png'
+import vector_up from '../assets/vector-up.png'
+import vector__down from '../assets/vector-down.png'
 
 export default class Navbar extends Component {
   constructor(props) {
@@ -14,8 +16,11 @@ export default class Navbar extends Component {
     this.state = {
       currencyData: [],
       toggler: false,
+      scrolled: false,
+      isSelected: false
     }
     this.wrapperRef = React.createRef();
+    this.selectorRef = React.createRef();
     this.handleClickOutside = this.handleClickOutside.bind(this);
   }
   componentDidMount() {
@@ -45,17 +50,26 @@ export default class Navbar extends Component {
   handleClickOutside(event) {
     if (this.state.toggler === true && this.wrapperRef && !this.wrapperRef.current.contains(event.target)) {
       this.setState(prevState => ({
-      toggler: !prevState.toggler
+        toggler: !prevState.toggler
+      }))
+    } else if (this.state.isSelected === true && this.selectorRef && !this.selectorRef.current.contains(event.target)) {
+      this.setState(prevState => ({
+      isSelected: !prevState.isSelected
       }))
     }
   }
   handleScroll = () => {
     const offset = window.scrollY;
-    if (window.scrollY >= 100) {
+    if (offset >= 0.1) {
       this.setState({scrolled: true})
     } else {
       this.setState({scrolled: false})
     }
+  }
+  handleSelect = () => {
+    this.setState(prevState => ({
+      isSelected: !prevState.isSelected
+    }))
   }
   render() {
     return (
@@ -94,15 +108,20 @@ export default class Navbar extends Component {
           </div>
           <div className='logo__section'><Link to='/'><img src={LOGO} alt='logo' /></Link></div>
           <div className='buttons__section'>
-
-            <div className='nav__bttns'>
-              <select value={this.props.currencySymbol} onChange={this.props.handleOnChange} id='nav__select'>
-                {this.currencySymbolOptions.map((option, index) => (
-                  <option key={index} value={option.value}>
-                    {option.text}
-                  </option>
-                ))}
-              </select>
+          <div className={this.state.isSelected === true ? 'custom__select bttns__disabled' : 'custom__select'} onClick={this.handleSelect}>
+              <div className='select__el__container'>
+                <div className='select__el1'>{this.props.currentCurrency}</div>
+                <div className='select__el2'>{this.state.isSelected === false ? <img src={vector__down}/> : <img src={vector_up}/>}</div>
+              </div>
+              <ul ref={this.selectorRef} className={this.state.isSelected === false ? 'ul__select' : 'ul__select ul__visible'} >
+                {this.currencySymbolOptions.map((item, index) => {
+                  return (
+                    <li key={index} onClick={() => this.props.handleOnChange(item.text)} value={'123'} className={item.text === this.props.currentCurrency ? 'l__select l__selected' : 'l__select'}>
+                      {item.text}
+                    </li>
+                  )
+                })}
+              </ul>                
             </div>
             <div className={this.state.toggler === true ? 'nav__bttns bttns__disabled' : 'nav__bttns'}>
               <button

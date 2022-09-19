@@ -21,20 +21,6 @@ export default class AllCateg extends Component {
             allCateg: categ,
         })
     }
-    currencySwitcher = (param) => {
-        switch (this.props.currencyData) {
-            case '$':
-                return <>{param.prices[0].amount}</>
-            case '£':
-                return <>{param.prices[1].amount}</>
-            case 'A$':
-                return <>{param.prices[2].amount}</>
-            case '¥':
-                return <>{param.prices[3].amount}</>
-            case '₽':
-                return <>{param.prices[4].amount}</>
-        }
-    }
     render() {
         return (
             <MainWrapper>
@@ -56,7 +42,7 @@ export default class AllCateg extends Component {
                                         <p>{item[0].name}</p>
                                         <p>
                                             {this.props.currencyData}
-                                            {this.currencySwitcher(item[0])}
+                                            {this.props.currencySwitcher(item[0])}
                                         </p>
                                     </TextWrapper>
                                     <FloatingCart>   

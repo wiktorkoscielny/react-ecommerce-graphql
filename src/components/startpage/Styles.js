@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom'
 export const MainWrapper = styled.div`
-    margin-top: 80px;
+    margin-top: 50px;
     margin-bottom: 100px;
         h1 {
             height: 50px;
@@ -30,7 +30,8 @@ export const ListItem = styled.li`
     display: inline;
     position: relative;
     cursor: pointer;
-    padding: 0 0 50px 0;
+    padding: 0;
+    margin=bottom: 40px;
     text-align: center;
 `
 export const ImgWrapper = styled.div`
@@ -69,8 +70,7 @@ export const FloatingCart = styled.div`
     background: var(--light-green);
         img {
             position: relative;
-            margin-left: auto;
-            margin-right: auto;
+            right: 1px;
             top: 15px;
 
         }
