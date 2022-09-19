@@ -70,8 +70,7 @@ export const FloatingCart = styled.div`
     background: var(--light-green);
         img {
             position: relative;
-            margin-left: auto;
-            margin-right: auto;
+            right: 1px;
             top: 15px;
 
         }
