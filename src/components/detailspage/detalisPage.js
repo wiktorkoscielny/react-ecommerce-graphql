@@ -3,6 +3,9 @@ import React, { Component } from 'react'
 // styled components
 import { SectionsWrapper, LeftSection, MiddleSection, RightSection, Button, ListOfOptions, ListOfColors } from './Styles';
 
+// modals
+import Config from '../modals/Config';
+
 export default class DetailsPage extends Component {
     constructor(props) {
         super(props);
@@ -87,6 +90,7 @@ export default class DetailsPage extends Component {
         return (
             <section>
                 <SectionsWrapper>
+                    {this.props.configComponent === true ? <Config modalText={this.props.modalText} configComponent={this.props.configComponent} /> : null}
                     <LeftSection>
                         {productGallery.map((item, index) => {
                             return (
@@ -167,7 +171,7 @@ export default class DetailsPage extends Component {
 
                         <h4>price:</h4>
                         <p style={{ fontSize: '24px', lineHeight: '18px', fontWeight: '700' }}>{this.props.currentCurrency}{this.currencySwitcher(this.props.productData)}</p>
-                        <Button onClick={() => this.props.handleProductAdd(this.state.productData, [[this.state.nameOf1Option, this.state.current1Option],[this.state.nameOf2Option, this.state.current2Option], [this.state.nameOf3Option, this.state.current3Option]], this.state.productData.id)}>add to cart</Button>
+                        <Button onClick={() => this.props.handleProductAdd(this.state.productData, [[this.state.nameOf1Option, this.state.current1Option],[this.state.nameOf2Option, this.state.current2Option], [this.state.nameOf3Option, this.state.current3Option]], this.state.productData.id)} configComponent={this.props.configComponent}>add to cart</Button>
                         <p>{(propsData.description).replace(regex, '')}</p>
 
                     </RightSection>
