@@ -15,8 +15,6 @@ import getCategory from './queries/GetCategory';
 
 export default class App extends Component {
   constructor(props) {
-    // local storage
-     
     super(props);
     this.state = {
       currencies: [{
@@ -33,14 +31,30 @@ export default class App extends Component {
       // sotrage of shopping cart
       storageOfProducts: {
         products: []
-      }
+      },
+      forceUpdate: 1
     }
   }
+
+  // ------ Managing the state of the application ------
+
   componentDidMount = async () => {
     // localStorage
-    const localCurrentCurrency = localStorage.getItem('currentCurrency')
-    const localCurrentCategory = localStorage.getItem('currentCategory')
-    const localStorageOfProducts = localStorage.getItem('storageOfProducts')
+    const localCurrentCurrency = localStorage.getItem('currentCurrency'),
+          localCurrentCategory = localStorage.getItem('currentCategory'),
+          localStorageOfProducts = localStorage.getItem('storageOfProducts'),
+          localCurrentPathName = localStorage.getItem('currentPathName'),
+          localCurrentProductId = localStorage.getItem('currentProductId')
+
+    if (localStorageOfProducts || (localCurrentPathName && localCurrentProductId && localStorageOfProducts)) {
+      this.setState({
+        ...this.state,
+        storageOfProducts: JSON.parse(localStorageOfProducts),
+        productId: JSON.parse(localCurrentProductId),
+        pathnameId: localCurrentPathName
+      })
+    } 
+
     // currencies
     const resultCurrencies = await JSON.parse(JSON.stringify((await getCurrencies())))
     this.setState({
@@ -52,12 +66,6 @@ export default class App extends Component {
         currentCurrency: localCurrentCurrency,
         currentCategory: localCurrentCategory
     });
-    if (localStorageOfProducts) {
-        this.setState({
-          ...this.state,
-          storageOfProducts: JSON.parse(localStorageOfProducts)
-        })
-    }
     // all categories
     // const allCategory = await JSON.parse(JSON.stringify((await getAllCategories())))
     // this.setState({
@@ -77,28 +85,36 @@ export default class App extends Component {
       allCateg: allFetchedCateg.category.products.map(product => [product])
     })
   }
+
+  // ------ Functions ------
+
+  // change current currency
   currencySymbolChanger = (value) => {
       this.setState({
         currentCurrency: value
-      })
-      localStorage.setItem('currentCurrency', value)
+      }, () => localStorage.setItem('currentCurrency', value))
   }
+  // change current category of products
   toggleClicked = (param) => {
     const current = param
     this.setState({
       ...this.state,
       currentCategory: current
-    })
-    localStorage.setItem('currentCategory', current)
+    }, () => localStorage.setItem('currentCategory', current))
   }
+  // get id of clicked product and set that id as current pathname
   handleProductIdCallback = async (childData) => {
     const product = await JSON.parse(JSON.stringify((await getProduct(childData))))
     this.setState({
       ...this.state,
+      // clicked product data that is passed to child
       productId: product.product,
-      pathnameId: childData
-    })
+      // id of clicked product for creating route path
+      pathnameId: childData,
+      }, () => localStorage.setItem('currentPathName', childData), localStorage.setItem('currentProductId', JSON.stringify(product.product))
+    )
   }
+  // add chosen product to cart
   handleProductAdd = (productData, chosenOptions, productId) => {
     const filteredOptions = chosenOptions.filter(item => item[0] !== undefined)
     const newProduct = {
@@ -120,10 +136,10 @@ export default class App extends Component {
           products: [...this.state.storageOfProducts.products, { newProduct }]
         },
         totalQuantity: this.state.totalQuantity + newProduct.quantity
-      }, () => localStorage.setItem('storageOfProducts', JSON.stringify(this.state.storageOfProducts))
-      )
+      }, () => localStorage.setItem('storageOfProducts', JSON.stringify(this.state.storageOfProducts)))
     }
   }
+  // change config of product added to cart
   handleCartChange = (productId, param1, param2) => {
     const existingProduct = this.state.storageOfProducts.products.find(el => el.newProduct.id === productId);
     const newData = param2 + param1
@@ -141,10 +157,13 @@ export default class App extends Component {
           item.newProduct.chosenOptions.splice(index, 1, [param2, newData])
         } return item
       })
-      const justUpdateTheState = 'stateUpdated'
-      this.setState({ ...this.state, stateUpdated: justUpdateTheState })
+      // force rerender and update config in local storage product data
+      this.setState({ ...this.state, forceUpdate: 1 }, 
+        () => localStorage.setItem('storageOfProducts', JSON.stringify(this.state.storageOfProducts))
+      )
     }
   }
+  // change the displayed product image to the next one
   handlePhotoIncreament = (param) => {
     const existingProduct = this.state.storageOfProducts.products.find(el => el.newProduct.id === param);
     if (!existingProduct) return
@@ -159,9 +178,13 @@ export default class App extends Component {
           }
         } return item
       })
-      this.forceUpdate()
+      // force rerender and update current displayed product img in local storage
+      this.setState({ ...this.state, forceUpdate: 1 }, 
+        () => localStorage.setItem('storageOfProducts', JSON.stringify(this.state.storageOfProducts))
+      )
     }
   }
+  // change the displayed product image to the previous one
   handlePhotoDecreament = (param) => {
     const existingProduct = this.state.storageOfProducts.products.find(el => el.newProduct.id === param);
     if (!existingProduct) return
@@ -177,17 +200,28 @@ export default class App extends Component {
           }
         } return item
       })
-      this.forceUpdate()
+      // force rerender and update current displayed product img in local storage
+      this.setState({ ...this.state, forceUpdate: 1 }, 
+        () => localStorage.setItem('storageOfProducts', JSON.stringify(this.state.storageOfProducts))
+      )
     }
   }
+  // change quantity of product already added to cart
   quantityAdd = (param) => {
     this.state.storageOfProducts.products.map(item => {
       if (item.newProduct.id === param) {
         item.newProduct.quantity++
       } return item
     })
-    this.forceUpdate()
+    // force rerender after 'storageOfProducts' state array mutated
+    this.setState({
+      ...this.state,
+      forceUpdate: 1
+      // update products stored in local storage
+      }, () => localStorage.setItem('storageOfProducts', JSON.stringify(this.state.storageOfProducts))
+    )
   }
+  // change quantity of product added to cart
   quantitySubtract = (param) => {
     this.state.storageOfProducts.products.map(item => {
       if (item.newProduct.id === param) {
@@ -200,8 +234,15 @@ export default class App extends Component {
         }
       } return item
     })
-    this.forceUpdate()
+    // force rerender after 'storageOfProducts' state array mutated
+    this.setState({
+      ...this.state,
+      forceUpdate: 1
+      // update products stored in local storage
+      }, () => localStorage.setItem('storageOfProducts', JSON.stringify(this.state.storageOfProducts))
+    )
   }
+  // change the currency in which the product prices are displayed
   currencySwitcher = (param) => {
     switch (this.state.currentCurrency) {
         case '$':
@@ -216,9 +257,8 @@ export default class App extends Component {
             return <>{param.prices[4].amount}</>
     }
   }
+  
   render() {
-    // const parsed = JSON.parse(this.state.storageOfProducts.products) === [] || this.state.storageOfProducts.products === [] ? null : this.state.storageOfProducts
-    // const length = parsed === null ? 0 : parsed.products.length
     return (
       <Router>
         <Navbar handleOnChange={this.currencySymbolChanger} data={this.state.currencies} toggleClicked={this.toggleClicked} currentCateg={this.state.currentCategory} quantityOfProducts={this.state.storageOfProducts.products.length} storageOfProducts={this.state.storageOfProducts} currentCurrency={this.state.currentCurrency} handleCartChange={this.handleCartChange} handlePhotoIncreament={this.handlePhotoIncreament} handlePhotoDecreament={this.handlePhotoDecreament} quantityAdd={this.quantityAdd} quantitySubtract={this.quantitySubtract} totalQuantity={this.state.totalQuantity}/>
