@@ -32,7 +32,9 @@ export default class App extends Component {
       storageOfProducts: {
         products: []
       },
-      forceUpdate: 1
+      forceUpdate: 1,
+      configComponent: false,
+      modalText: ''
     }
   }
 
@@ -85,7 +87,6 @@ export default class App extends Component {
       allCateg: allFetchedCateg.category.products.map(product => [product])
     })
   }
-
   // ------ Functions ------
 
   // change current currency
@@ -126,18 +127,31 @@ export default class App extends Component {
     }
     const existingProduct = this.state.storageOfProducts.products.find(el => el.newProduct.id === productId);
     if (existingProduct) {
-      return alert('This product has already been added to cart') // create a jsx div instead of alerts
+      this.setState({
+        ...this.state, 
+        configComponent: true, 
+        modalText: 'This product has been already added to cart'
+      })
+      setTimeout(() => { this.setState({configComponent: false}) }, 3000)
     } else if (newProduct.chosenOptions.length !== newProduct.productData.attributes.length) {
-      return alert('Choose product options') // create a jsx div instead of alerts
+      this.setState({
+        ...this.state, 
+        configComponent: true, 
+        modalText: 'Choose product options first'
+      })
+      setTimeout(() => { this.setState({configComponent: false}) }, 3000)
     } else {
       this.setState({
         ...this.state,
         storageOfProducts: {
           products: [...this.state.storageOfProducts.products, { newProduct }]
         },
-        totalQuantity: this.state.totalQuantity + newProduct.quantity
+        totalQuantity: this.state.totalQuantity + newProduct.quantity,
+        configComponent: true, 
+        modalText: 'Succes! Product added to cart'
       }, () => localStorage.setItem('storageOfProducts', JSON.stringify(this.state.storageOfProducts)))
     }
+    setTimeout(() => { this.setState({configComponent: false}) }, 3000)
   }
   // change config of product added to cart
   handleCartChange = (productId, param1, param2) => {
@@ -263,7 +277,7 @@ export default class App extends Component {
       <Router>
         <Navbar handleOnChange={this.currencySymbolChanger} data={this.state.currencies} toggleClicked={this.toggleClicked} currentCateg={this.state.currentCategory} quantityOfProducts={this.state.storageOfProducts.products.length} storageOfProducts={this.state.storageOfProducts} currentCurrency={this.state.currentCurrency} handleCartChange={this.handleCartChange} handlePhotoIncreament={this.handlePhotoIncreament} handlePhotoDecreament={this.handlePhotoDecreament} quantityAdd={this.quantityAdd} quantitySubtract={this.quantitySubtract} totalQuantity={this.state.totalQuantity}/>
         <Routes>
-          <Route path={`/details/${this.state.pathnameId}`} element={<DetailsPage productData={this.state.productId} currentCurrency={this.state.currentCurrency} storageOfProducts={this.state.storageOfProducts} handleProductAdd={this.handleProductAdd} />} />
+          <Route path={`/details/${this.state.pathnameId}`} element={<DetailsPage modalText={this.state.modalText} configComponent={this.state.configComponent} productData={this.state.productId} currentCurrency={this.state.currentCurrency} storageOfProducts={this.state.storageOfProducts} handleProductAdd={this.handleProductAdd} />} />
           <Route exact path='/' element={<StartPage currencySwitcher={this.currencySwitcher} currencyData={this.state.currentCurrency} allCateg={this.state.allCateg} techCateg={this.state.techCateg} clothesCateg={this.state.clothesCateg} currentCategory={this.state.currentCategory} productClicked={this.props.productClicked} productIdCallback={this.handleProductIdCallback} />} />
           <Route path={'/cart'} element={<CartPage storageOfProducts={this.state.storageOfProducts} currentCurrency={this.state.currentCurrency} handleCartChange={this.handleCartChange} handlePhotoIncreament={this.handlePhotoIncreament} handlePhotoDecreament={this.handlePhotoDecreament} quantityAdd={this.quantityAdd} quantitySubtract={this.quantitySubtract} totalQuantity={this.state.totalQuantity} />} />
         </Routes>
