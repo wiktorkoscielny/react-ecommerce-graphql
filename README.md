@@ -12,3 +12,5 @@ The last things to do are:
 - handle adding same product but in different config
 
 
+
+https://user-images.githubusercontent.com/81425551/191362650-ff0114db-014c-4167-bf38-c3bc8abe173e.mp4
