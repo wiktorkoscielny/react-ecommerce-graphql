@@ -56,11 +56,6 @@ export default class DetailsPage extends Component {
         }
     }
     changeFirstOption = (param1, param2) => {
-        const name = {
-            param1: {
-                param2
-            }
-        }
         this.setState({
             ...this.state,
             current1Option: param1 + param2,
