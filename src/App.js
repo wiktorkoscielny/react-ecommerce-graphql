@@ -115,7 +115,7 @@ export default class App extends Component {
       }, () => localStorage.setItem('currentPathName', childData), localStorage.setItem('currentProductId', JSON.stringify(product.product))
     )
   }
-  // add chosen product to cart
+  // add choosen product to cart
   handleProductAdd = (productData, chosenOptions, productId) => {
     const filteredOptions = chosenOptions.filter(item => item[0] !== undefined)
     const newProduct = {
@@ -271,7 +271,6 @@ export default class App extends Component {
             return <>{param.prices[4].amount}</>
     }
   }
-  
   render() {
     return (
       <Router>

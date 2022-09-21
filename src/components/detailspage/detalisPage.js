@@ -18,11 +18,8 @@ export default class DetailsPage extends Component {
             current1Option: '',
             current2Option: '',
             current3Option: '',
-            
             // add product data to cart
-            productDetailsSender: {
-
-            }
+            productDetailsSender: {}
         }
     }
     componentDidMount() {

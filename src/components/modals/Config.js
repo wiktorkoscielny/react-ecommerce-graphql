@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import { AiFillCheckCircle, AiFillExclamationCircle } from 'react-icons/ai'
 
-
 const Wrapper = styled.div`
   position: fixed;
   display: flex;
@@ -53,7 +52,7 @@ const Border = styled.div`
 export default class Config extends Component {
   render() {
     return (
-      <Wrapper>
+      <Wrapper ref={this.wrapperRef}>
         <Content>
           {this.props.modalText === 'Succes! Product added to cart' 
             ? 
