@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 
 // styles
-import { ListWrapper, ListItem, ImgWrapper, MainWrapper, StyledLink, FloatingCart, TextWrapper } from './Styles';
+import { ListWrapper, ListItem, ImgWrapper, MainWrapper, OutOfStockText, StyledLink, FloatingCart, ProductInStock, TextWrapper } from './Styles';
 
 // assets
 import SmallCart from '../assets/white-cart.png'
+
+// queries
 
 export default class AllCateg extends Component {
     constructor(props) {
@@ -28,9 +30,10 @@ export default class AllCateg extends Component {
                 <ListWrapper>
                     {this.props.allCateg.map((item, index) => {
                         return (
+                        <ProductInStock key={index} inStock={item[0].inStock}>
+                            <OutOfStockText inStock={item[0].inStock}>out of stock</OutOfStockText>
                             <StyledLink
                                 to={`/details/${item[0].id}`}
-                                key={index}
                             >
                                 <ListItem
                                     onClick={() => this.props.productIdCallback(item[0].id)}
@@ -50,6 +53,7 @@ export default class AllCateg extends Component {
                                     </FloatingCart>
                                 </ListItem>
                             </StyledLink>
+                        </ProductInStock>
                         )
                     })}
                 </ListWrapper>
