@@ -37,7 +37,7 @@ const Border = styled.div`
   bottom: 0;
   margin: 0;
   padding: 0;
-  animation: 3s in-out forwards;
+  animation: 1.4s in-out forwards;
   height: 5px;
   background: var(--light-green);
     @keyframes in-out {
