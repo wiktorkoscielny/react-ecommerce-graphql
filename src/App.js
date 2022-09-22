@@ -11,6 +11,7 @@ import CartPage from './components/cartpage/CartPage'
 import getCurrencies from './queries/GetCurriences';
 import getProduct from './queries/GetProducts';
 import getCategory from './queries/GetCategory';
+import checkForInStock from './queries/CheckForInStock'
 // import getAllCategories from './queries/GetAllCategories';
 
 export default class App extends Component {
@@ -104,6 +105,10 @@ export default class App extends Component {
       pathnameId: childData,
       }, () => localStorage.setItem('currentPathName', childData), localStorage.setItem('currentProductId', JSON.stringify(product.product))
     )
+
+
+
+    
   }
   // add choosen product to cart
   handleProductAdd = (productData, chosenOptions, productId) => {

@@ -76,15 +76,35 @@ export const FloatingCart = styled.div`
         }
 `
 export const StyledLink = styled(Link)`
-    border: 20px solid transparent;
     text-decoration: none;
+`
+export const ProductInStock = styled.div`
+    border: 20px solid transparent;
     transition: box-shadow .3s;
-    :hover {
-        -webkit-box-shadow: 0px 0px 14px 5px rgba(0,0,0,0.1); 
-        box-shadow: 0px 0px 14px 5px rgba(0,0,0,0.1);
-    }
+
+    ${({ inStock }) => inStock === false 
+        ? 
+            'filter: grayscale(99); opacity: .8; pointer-events: none;' 
+        : 
+            ':hover {-webkit-box-shadow: 0px 0px 14px 5px rgba(0,0,0,0.1); box-shadow: 0px 0px 14px 5px rgba(0,0,0,0.1);}'
+    };
+
     &:hover ${FloatingCart} {
-        visibility: visible;
+        ${({ inStock }) => inStock === false ? 'visibility: hidden' : 'visibility: visible'};
         opacity: 1;
     }
+`
+export const OutOfStockText = styled.div`
+    ${({ inStock }) => inStock === false ? 'display: block' : 'display: none'};
+    position: absolute;
+    z-index: 30;
+    text-transform: uppercase;
+    color: rgba(141, 143, 154, 1);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -150%);
+    font-size: 24px;
+    font-weight: 400;
+    font-family: Raleway;
+    text-align: center;
 `
