@@ -44,16 +44,12 @@ export default class App extends Component {
     // localStorage
     const localCurrentCurrency = localStorage.getItem('currentCurrency'),
           localCurrentCategory = localStorage.getItem('currentCategory'),
-          localStorageOfProducts = localStorage.getItem('storageOfProducts'),
-          localCurrentPathName = localStorage.getItem('currentPathName'),
-          localCurrentProductId = localStorage.getItem('currentProductId')
+          localStorageOfProducts = localStorage.getItem('storageOfProducts')
 
-    if (localStorageOfProducts || (localCurrentPathName && localCurrentProductId && localStorageOfProducts)) {
+    if (localStorageOfProducts) {
       this.setState({
         ...this.state,
-        storageOfProducts: JSON.parse(localStorageOfProducts),
-        productId: JSON.parse(localCurrentProductId),
-        pathnameId: localCurrentPathName
+        storageOfProducts: JSON.parse(localStorageOfProducts)
       })
     } 
 
@@ -68,12 +64,6 @@ export default class App extends Component {
         currentCurrency: localCurrentCurrency,
         currentCategory: localCurrentCategory
     });
-    // all categories
-    // const allCategory = await JSON.parse(JSON.stringify((await getAllCategories())))
-    // this.setState({
-    //   ...this.state,
-    //   categories: JSON.parse(JSON.stringify(allCategory)),
-    // })
 
     // products by categ
     const techFetchedCateg = await JSON.parse(JSON.stringify((await getCategory('tech'))))
@@ -132,14 +122,14 @@ export default class App extends Component {
         configComponent: true, 
         modalText: 'This product has been already added to cart'
       })
-      setTimeout(() => { this.setState({configComponent: false}) }, 3000)
+      setTimeout(() => { this.setState({configComponent: false}) }, 1200)
     } else if (newProduct.chosenOptions.length !== newProduct.productData.attributes.length) {
       this.setState({
         ...this.state, 
         configComponent: true, 
         modalText: 'Choose product options first'
       })
-      setTimeout(() => { this.setState({configComponent: false}) }, 3000)
+      setTimeout(() => { this.setState({configComponent: false}) }, 1200)
     } else {
       this.setState({
         ...this.state,
@@ -151,7 +141,7 @@ export default class App extends Component {
         modalText: 'Succes! Product added to cart'
       }, () => localStorage.setItem('storageOfProducts', JSON.stringify(this.state.storageOfProducts)))
     }
-    setTimeout(() => { this.setState({configComponent: false}) }, 3000)
+    setTimeout(() => { this.setState({configComponent: false}) }, 1200)
   }
   // change config of product added to cart
   handleCartChange = (productId, param1, param2) => {
@@ -276,7 +266,11 @@ export default class App extends Component {
       <Router>
         <Navbar handleOnChange={this.currencySymbolChanger} data={this.state.currencies} toggleClicked={this.toggleClicked} currentCateg={this.state.currentCategory} quantityOfProducts={this.state.storageOfProducts.products.length} storageOfProducts={this.state.storageOfProducts} currentCurrency={this.state.currentCurrency} handleCartChange={this.handleCartChange} handlePhotoIncreament={this.handlePhotoIncreament} handlePhotoDecreament={this.handlePhotoDecreament} quantityAdd={this.quantityAdd} quantitySubtract={this.quantitySubtract} totalQuantity={this.state.totalQuantity}/>
         <Routes>
-          <Route path={`/details/${this.state.pathnameId}`} element={<DetailsPage modalText={this.state.modalText} configComponent={this.state.configComponent} productData={this.state.productId} currentCurrency={this.state.currentCurrency} storageOfProducts={this.state.storageOfProducts} handleProductAdd={this.handleProductAdd} />} />
+          {this.state.allCateg.map((item, index) => {
+            return (
+              <Route key={index} path={`/details/${item[0].id}`} element={<DetailsPage modalText={this.state.modalText} configComponent={this.state.configComponent} productData={item[0]} currentCurrency={this.state.currentCurrency} storageOfProducts={this.state.storageOfProducts} handleProductAdd={this.handleProductAdd} />} />
+            )
+          })}
           <Route exact path='/' element={<StartPage currencySwitcher={this.currencySwitcher} currencyData={this.state.currentCurrency} allCateg={this.state.allCateg} techCateg={this.state.techCateg} clothesCateg={this.state.clothesCateg} currentCategory={this.state.currentCategory} productClicked={this.props.productClicked} productIdCallback={this.handleProductIdCallback} />} />
           <Route path={'/cart'} element={<CartPage storageOfProducts={this.state.storageOfProducts} currentCurrency={this.state.currentCurrency} handleCartChange={this.handleCartChange} handlePhotoIncreament={this.handlePhotoIncreament} handlePhotoDecreament={this.handlePhotoDecreament} quantityAdd={this.quantityAdd} quantitySubtract={this.quantitySubtract} totalQuantity={this.state.totalQuantity} />} />
         </Routes>
