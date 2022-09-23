@@ -1,4 +1,4 @@
-# React e-commerce website with apollo graphQL api and with opus builder
+# React e-commerce website with apollo graphQL api and with [tilework/opus](https://github.com/tilework/opus) builder
 
 ## General info
 
