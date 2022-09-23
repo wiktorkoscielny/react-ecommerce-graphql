@@ -2,7 +2,7 @@
 
 ## General info
 
-Here I'm building e-commerce website, basicly to learn how to use graphql api data from Apollo server and using opus to generate graphql requests.
+Here I'm building e-commerce website, basicly to learn how to use graphql api data from Apollo server and how to use opus to generate graphql requests.
 
 I have not used any libraries apart from styled-components && opus. I am also only using class components.
 

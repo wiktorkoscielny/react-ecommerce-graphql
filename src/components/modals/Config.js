@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import styled from 'styled-components'
-import { AiFillCheckCircle, AiFillExclamationCircle } from 'react-icons/ai'
+import React, { Component } from "react";
+import styled from "styled-components";
+import { AiFillCheckCircle, AiFillExclamationCircle } from "react-icons/ai";
 
 const Wrapper = styled.div`
   position: fixed;
@@ -25,12 +25,12 @@ const Wrapper = styled.div`
       top: 90px;
     }
   }
-`
+`;
 const Content = styled.div`
   font-size: 16px;
   font-weight: 600;
   color: var(--text-dark);
-`
+`;
 const Border = styled.div`
   position: absolute;
   left: 0;
@@ -40,30 +40,43 @@ const Border = styled.div`
   animation: 1.4s in-out forwards;
   height: 5px;
   background: var(--light-green);
-    @keyframes in-out {
-      0% {
-        width: 0;
-      }
-      100% {
-        width: 100%;
-      }
+  @keyframes in-out {
+    0% {
+      width: 0;
     }
-`
+    100% {
+      width: 100%;
+    }
+  }
+`;
 export default class Config extends Component {
   render() {
     return (
       <Wrapper ref={this.wrapperRef}>
         <Content>
-          {this.props.modalText === 'Succes! Product added to cart' 
-            ? 
-              <AiFillCheckCircle style={{ fontSize: '24px', color: 'var(--light-green)', transform: 'translateY(5px)', paddingRight: '5px'}}/> 
-            : 
-              <AiFillExclamationCircle style={{ fontSize: '24px', color: 'var(--light-green)', transform: 'translateY(5px)', paddingRight: '5px'}}/>
-          }
+          {this.props.modalText === "Succes! Product added to cart" ? (
+            <AiFillCheckCircle
+              style={{
+                fontSize: "24px",
+                color: "var(--light-green)",
+                transform: "translateY(5px)",
+                paddingRight: "5px",
+              }}
+            />
+          ) : (
+            <AiFillExclamationCircle
+              style={{
+                fontSize: "24px",
+                color: "var(--light-green)",
+                transform: "translateY(5px)",
+                paddingRight: "5px",
+              }}
+            />
+          )}
           {this.props.modalText}
         </Content>
         <Border />
       </Wrapper>
-    )
+    );
   }
 }
