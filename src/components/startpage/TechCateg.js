@@ -18,16 +18,7 @@ import SmallCart from "../assets/white-cart.png";
 
 export default class TechCateg extends Component {
   constructor(props) {
-    super(props);
-    this.state = {
-      techCateg: [],
-    };
-  }
-  componentDidMount() {
-    const categ = this.props.techCateg;
-    this.setState({
-      techCateg: categ,
-    });
+    super(props)
   }
   render() {
     return (

@@ -18,16 +18,7 @@ import SmallCart from "../assets/white-cart.png";
 
 export default class ClothesCateg extends Component {
   constructor(props) {
-    super(props);
-    this.state = {
-      clothesCateg: [],
-    };
-  }
-  componentDidMount() {
-    const categ = this.props.clothesCateg;
-    this.setState({
-      clothesCateg: categ,
-    });
+    super(props)
   }
   render() {
     return (

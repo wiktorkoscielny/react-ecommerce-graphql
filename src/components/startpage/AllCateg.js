@@ -18,18 +18,7 @@ import SmallCart from "../assets/white-cart.png";
 
 export default class AllCateg extends Component {
   constructor(props) {
-    super(props);
-    this.state = {
-      allCateg: [],
-      productClicked: "",
-    };
-  }
-  componentDidMount() {
-    const categ = this.props.allCateg;
-    this.setState({
-      ...this.state,
-      allCateg: categ,
-    });
+    super(props)
   }
   render() {
     return (
