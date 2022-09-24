@@ -26,9 +26,10 @@ export default class AllCateg extends Component {
         <h1>Tech</h1>
         <ListWrapper>
           {this.props.allCateg.map((item, index) => {
+            const inStock = this.props.inStock.find(i => i.id === item[0].id)
             return (
-              <ProductInStock key={index} inStock={item[0].inStock}>
-                <OutOfStockText inStock={item[0].inStock}>
+              <ProductInStock key={index} inStock={inStock !== undefined ? inStock.inStock : null}>
+                <OutOfStockText inStock={inStock !== undefined ? inStock.inStock : null}>
                   out of stock
                 </OutOfStockText>
                 <StyledLink to={`/details/${item[0].id}`}>

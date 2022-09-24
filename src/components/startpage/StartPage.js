@@ -8,23 +8,13 @@ import ClothesCateg from "./ClothesCateg";
 export default class StartPage extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      currency: "",
-      productId: "",
-    };
   }
-  componentDidMount = async () => {
-    const currencyData = this.props.currencyData;
-    this.setState({
-      ...this.state,
-      currency: currencyData,
-    });
-  };
   renderSwitch = () => {
     switch (this.props.currentCategory) {
       case "all":
         return (
           <AllCateg
+            inStock={this.props.inStock}
             allCateg={this.props.allCateg}
             currencyData={this.props.currencyData}
             currencySwitcher={this.props.currencySwitcher}
@@ -34,6 +24,7 @@ export default class StartPage extends Component {
       case "tech":
         return (
           <TechCateg
+            inStock={this.props.inStock}
             techCateg={this.props.techCateg}
             currencyData={this.props.currencyData}
             currencySwitcher={this.props.currencySwitcher}
@@ -43,6 +34,7 @@ export default class StartPage extends Component {
       case "clothes":
         return (
           <ClothesCateg
+            inStock={this.props.inStock}
             clothesCateg={this.props.clothesCateg}
             currencyData={this.props.currencyData}
             currencySwitcher={this.props.currencySwitcher}
