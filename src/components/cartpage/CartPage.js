@@ -26,16 +26,12 @@ import {
 // assets
 import SLIDERLEFT from "../assets/slider-left.png";
 import SLIDERRIGHT from "../assets/slider-right.png";
-import PLUS from "../assets/plus.png";
-import MINUS from "../assets/minus.png";
 import horizontalVector from "../assets/VectorHorizontal.jpg";
-import verticalVector from "../assets/VectorWertical.jpg";
 
 export default class CartPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      productsAsProps: {},
       chosenOptions: [],
     };
   }
@@ -45,7 +41,6 @@ export default class CartPage extends Component {
       const chosenOptions = listOfProducts.products[0].newProduct.chosenOptions;
       this.setState({
         ...this.state,
-        productsAsProps: listOfProducts,
         chosenOptions: [chosenOptions],
       });
     } else return;
@@ -227,7 +222,7 @@ export default class CartPage extends Component {
                           <PhotoContainer>
                             <img
                               src={item.newProduct.productData.gallery[number]}
-                              alt="current photo of product"
+                              alt="First view of the product"
                             />
                           </PhotoContainer>
 
