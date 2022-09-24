@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 // styled components
-import { SectionsWrapper, LeftSection, MiddleSection, RightSection, Button, ListOfOptions, ListOfColors } from './Styles';
+import { SectionsWrapper, LeftSection, MiddleSection, RightSection, Button, ListOfOptions } from './Styles';
 
 // modals
 import Config from '../modals/Config';
@@ -13,7 +13,7 @@ export default class DetailsPage extends Component {
             productData: {},
             currentPhoto: '',
             photoKey: 0,
-            productSpec: {},
+            productOptions: {},
             currency: '',
             current1Option: '',
             current2Option: '',
@@ -24,13 +24,13 @@ export default class DetailsPage extends Component {
     }
     componentDidMount() {
         const productData = this.props.productData
-        const productSpec = this.props.productData.attributes
+        const productOptions = this.props.productData.attributes
         const currentCurrency = this.props.currentCurrency
         this.setState({
             ...this.state,
             productData: productData,
             currentPhoto: productData.gallery[0],
-            productSpec: productSpec,
+            productOptions: productOptions,
             currency: currentCurrency,
         })
     }
@@ -82,7 +82,7 @@ export default class DetailsPage extends Component {
     render() {
         const propsData = this.props.productData
         const productGallery = this.props.productData.gallery
-        const productSpec = this.props.productData.attributes
+        const productOptions = this.props.productData.attributes
         const regex = /(<([^>]+)>)/ig
         return (
             <section>
@@ -96,7 +96,7 @@ export default class DetailsPage extends Component {
                                         <img
                                             key={index}
                                             src={item}
-                                            alt='product picture'
+                                            alt='View of the product'
                                             style={{ width: '64px', height: '54px', cursor: 'pointer', filter: this.state.photoKey === index ? 'brightness(0.89)' : 'none' }}
                                             onClick={() => this.changePhoto(item, index)}
                                         >
@@ -108,16 +108,16 @@ export default class DetailsPage extends Component {
                     </LeftSection>
                     <MiddleSection>
                         {this.state.currentPhoto &&
-                            <img src={this.state.currentPhoto} alt='big picture of product' style={{ width: '500px', height: '500px' }}></img>
+                            <img src={this.state.currentPhoto} alt='View of the product in the bigger format' style={{ width: '500px', height: '500px' }}></img>
                         }
                     </MiddleSection>
                     <RightSection>
                         <h2>{propsData.brand}</h2>
                         <h3>{propsData.name}</h3>
 
-                        {/* FIRST SPEC */}
+                        {/* FIRST OPTION */}
 
-                        {productSpec.slice(0, 1) && productSpec.slice(0, 1).map((item, index) => {
+                        {productOptions.slice(0, 1) && productOptions.slice(0, 1).map((item, index) => {
                             return (
                                 <div key={index}>
                                     <h4>{item.id}:</h4>
@@ -132,9 +132,9 @@ export default class DetailsPage extends Component {
                             )
                         })}
 
-                        {/* SECONDSPEC */}
+                        {/* SECOND OPTION */}
 
-                        {productSpec.slice(1, 2) && productSpec.slice(1, 2).map((item, index) => {
+                        {productOptions.slice(1, 2) && productOptions.slice(1, 2).map((item, index) => {
                             return (
                                 <div key={index}>
                                     <h4>{item.id}:</h4>
@@ -149,9 +149,9 @@ export default class DetailsPage extends Component {
                             )
                         })}
 
-                        {/* THIRD SPEC */}
+                        {/* THIRD OPTION */}
 
-                        {productSpec.slice(2, 3) && productSpec.slice(2, 3).map((item, index) => {
+                        {productOptions.slice(2, 3) && productOptions.slice(2, 3).map((item, index) => {
                             return (
                                 <div key={index}>
                                     <h4>{item.id}:</h4>

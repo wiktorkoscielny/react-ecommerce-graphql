@@ -14,7 +14,6 @@ export default class Navbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currencyData: [],
       toggler: false,
       scrolled: false,
       isSelected: false,
@@ -24,11 +23,7 @@ export default class Navbar extends Component {
     this.handleClickOutside = this.handleClickOutside.bind(this);
   }
   componentDidMount() {
-    const props = this.props.data;
     window.addEventListener("scroll", this.handleScroll);
-    this.setState({
-      currencyData: props,
-    });
     document.addEventListener("mousedown", this.handleClickOutside);
   }
   componentWillUnmount() {
@@ -138,9 +133,9 @@ export default class Navbar extends Component {
                 <div className="select__el1">{this.props.currentCurrency}</div>
                 <div className="select__el2">
                   {this.state.isSelected === false ? (
-                    <img src={vector__down} />
+                    <img src={vector__down} alt='down arrow'/>
                   ) : (
-                    <img src={vector_up} />
+                    <img src={vector_up} alt='up arrow'/>
                   )}
                 </div>
               </div>
