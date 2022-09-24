@@ -10,6 +10,7 @@ import CartPage from "./components/cartpage/CartPage";
 //queries
 import getCurrencies from "./queries/GetCurriences";
 import getCategory from "./queries/GetCategory";
+import checkForInStock from "./queries/CheckForInStock";
 
 export default class App extends Component {
   constructor(props) {
@@ -35,6 +36,7 @@ export default class App extends Component {
       forceUpdate: 1,
       configComponent: false,
       modalText: "",
+      inStock: [],
     };
   }
 
@@ -86,6 +88,18 @@ export default class App extends Component {
       ],
       currentCurrency: localCurrentCurrency,
       currentCategory: localCurrentCategory,
+    });
+
+    // create state with inStock data just to use inStock request
+    let arr = [];
+    this.state.allCateg.map(async (item) => {
+      const requestInStockInfo = await JSON.parse(
+        JSON.stringify(await checkForInStock(item[0].id))
+      );
+      arr.push({ id: item[0].id, inStock: requestInStockInfo.product.inStock });
+      return this.setState({
+        inStock: arr,
+      });
     });
   };
 
@@ -375,6 +389,7 @@ export default class App extends Component {
             path="/"
             element={
               <StartPage
+                inStock={this.state.inStock}
                 currencySwitcher={this.currencySwitcher}
                 currencyData={this.state.currentCurrency}
                 allCateg={this.state.allCateg}
