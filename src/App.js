@@ -246,12 +246,12 @@ export default class App extends Component {
   // change the displayed product image to the next one
   handlePhotoIncreament = (param) => {
     const existingProduct = this.state.storageOfProducts.products.find(
-      (el) => el.newProduct.id === param
+      (el) => el.newProduct.uniqueId === param
     );
     if (!existingProduct) return;
     else {
       this.state.storageOfProducts.products.map((item) => {
-        if (item.newProduct.id === param) {
+        if (item.newProduct.uniqueId === param) {
           const arrayLength = item.newProduct.productData.gallery.length - 2;
           if (item.newProduct.slideHandler <= arrayLength) {
             item.newProduct.slideHandler++;
@@ -274,12 +274,12 @@ export default class App extends Component {
   // change the displayed product image to the previous one
   handlePhotoDecreament = (param) => {
     const existingProduct = this.state.storageOfProducts.products.find(
-      (el) => el.newProduct.id === param
+      (el) => el.newProduct.uniqueId === param
     );
     if (!existingProduct) return;
     else {
       this.state.storageOfProducts.products.map((item) => {
-        if (item.newProduct.id === param) {
+        if (item.newProduct.uniqueId === param) {
           const arrayLength = item.newProduct.productData.gallery.length - 1;
           if (item.newProduct.slideHandler <= arrayLength) {
             item.newProduct.slideHandler--;
