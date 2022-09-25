@@ -113,6 +113,7 @@ export default class CartPage extends Component {
                     : null;
                   const number = item.newProduct.slideHandler;
                   const productId = item.newProduct.id;
+                  const productUniqueId = item.newProduct.uniqueId
                   return (
                     <ReturnedProduct key={index}>
                       <CartLeftSection>
@@ -146,7 +147,8 @@ export default class CartPage extends Component {
                                         this.props.handleCartChange(
                                           productId,
                                           a.id,
-                                          item.id
+                                          item.id,
+                                          productUniqueId
                                         )
                                       }
                                     >
@@ -171,7 +173,8 @@ export default class CartPage extends Component {
                                         this.props.handleCartChange(
                                           productId,
                                           a.id,
-                                          item.id
+                                          item.id,
+                                          productUniqueId
                                         )
                                       }
                                     >
@@ -187,7 +190,7 @@ export default class CartPage extends Component {
                       <CartRightSection>
                         <QuantitySection>
                           <ButtonAdd
-                            onClick={() => this.props.quantityAdd(productId)}
+                            onClick={() => this.props.quantityAdd(productUniqueId)}
                           >
                             <ImgOne>
                               <img
@@ -207,7 +210,7 @@ export default class CartPage extends Component {
                           </Quantity>
                           <ButtonRemove
                             onClick={() =>
-                              this.props.quantitySubtract(productId)
+                              this.props.quantitySubtract(productUniqueId)
                             }
                           >
                             <ImgOne>
@@ -229,7 +232,7 @@ export default class CartPage extends Component {
                           {item.newProduct.productData.gallery.length > 1 ? (
                             <ImgBtnLeft
                               onClick={() =>
-                                this.props.handlePhotoDecreament(productId)
+                                this.props.handlePhotoDecreament(productUniqueId)
                               }
                             >
                               <img src={SLIDERLEFT} alt="left arrow" />
@@ -238,7 +241,7 @@ export default class CartPage extends Component {
                           {item.newProduct.productData.gallery.length > 1 ? (
                             <ImgBtnRight
                               onClick={() =>
-                                this.props.handlePhotoIncreament(productId)
+                                this.props.handlePhotoIncreament(productUniqueId)
                               }
                             >
                               <img src={SLIDERRIGHT} alt="right arrow" />

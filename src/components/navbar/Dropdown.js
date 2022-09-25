@@ -90,8 +90,8 @@ export default class Dropdown extends Component {
                 const option3 = item.newProduct.chosenOptions[2]
                   ? item.newProduct.chosenOptions[2][1]
                   : null;
-                const number = item.newProduct.slideHandler;
                 const productId = item.newProduct.id;
+                const productUniqueId = item.newProduct.uniqueId
                 return (
                   <ReturnedProduct key={index}>
                     <CartLeftSection>
@@ -125,7 +125,8 @@ export default class Dropdown extends Component {
                                       this.props.handleCartChange(
                                         productId,
                                         a.id,
-                                        item.id
+                                        item.id,
+                                        productUniqueId
                                       )
                                     }
                                   >
@@ -150,7 +151,8 @@ export default class Dropdown extends Component {
                                       this.props.handleCartChange(
                                         productId,
                                         a.id,
-                                        item.id
+                                        item.id,
+                                        productUniqueId
                                       )
                                     }
                                   >
@@ -166,7 +168,7 @@ export default class Dropdown extends Component {
                     <CartRightSection>
                       <QuantitySection>
                         <ButtonAdd
-                          onClick={() => this.props.quantityAdd(productId)}
+                          onClick={() => this.props.quantityAdd(productUniqueId)}
                         >
                           <ImgOne>
                             <img src={PLUS} alt="Horizontal vector" />
@@ -176,7 +178,7 @@ export default class Dropdown extends Component {
                           <p>{item.newProduct.quantity}</p>
                         </Quantity>
                         <ButtonRemove
-                          onClick={() => this.props.quantitySubtract(productId)}
+                          onClick={() => this.props.quantitySubtract(productUniqueId)}
                         >
                           <ImgTwo>
                             <img src={MINUS} alt="Horizontal vector" />
@@ -187,7 +189,7 @@ export default class Dropdown extends Component {
                         <PhotoContainer>
                           <img
                             src={item.newProduct.productData.gallery[0]}
-                            alt="current photo of product"
+                            alt="View of the product"
                           />
                         </PhotoContainer>
                       </PhotoSection>
