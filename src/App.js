@@ -301,9 +301,9 @@ export default class App extends Component {
   };
 
   // change quantity of product already added to cart
-  quantityAdd = (param) => {
+  quantityAdd = (uniqueIdParameter) => {
     this.state.storageOfProducts.products.map((item) => {
-      if (item.newProduct.id === param) {
+      if (item.newProduct.uniqueId === uniqueIdParameter) {
         item.newProduct.quantity++;
       }
       return item;
@@ -324,12 +324,12 @@ export default class App extends Component {
   };
 
   // change quantity of product added to cart
-  quantitySubtract = (param) => {
+  quantitySubtract = (uniqueIdParameter) => {
     this.state.storageOfProducts.products.map((item) => {
-      if (item.newProduct.id === param) {
+      if (item.newProduct.uniqueId === uniqueIdParameter) {
         if (item.newProduct.quantity === 1) {
           const find = this.state.storageOfProducts.products.find(
-            (el) => el.newProduct.id === param
+            (el) => el.newProduct.uniqueId === uniqueIdParameter
           );
           const index = this.state.storageOfProducts.products.indexOf(find);
           this.state.storageOfProducts.products.splice(index, 1);

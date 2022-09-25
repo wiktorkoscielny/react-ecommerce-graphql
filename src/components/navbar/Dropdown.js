@@ -168,7 +168,7 @@ export default class Dropdown extends Component {
                     <CartRightSection>
                       <QuantitySection>
                         <ButtonAdd
-                          onClick={() => this.props.quantityAdd(productId)}
+                          onClick={() => this.props.quantityAdd(productUniqueId)}
                         >
                           <ImgOne>
                             <img src={PLUS} alt="Horizontal vector" />
@@ -178,7 +178,7 @@ export default class Dropdown extends Component {
                           <p>{item.newProduct.quantity}</p>
                         </Quantity>
                         <ButtonRemove
-                          onClick={() => this.props.quantitySubtract(productId)}
+                          onClick={() => this.props.quantitySubtract(productUniqueId)}
                         >
                           <ImgTwo>
                             <img src={MINUS} alt="Horizontal vector" />
