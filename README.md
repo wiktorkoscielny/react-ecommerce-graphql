@@ -13,11 +13,7 @@ Products can be filtered according to three categories. Products are checked for
 The solution had been implemented as per design, which is available at this [link](https://www.figma.com/file/MSyCAqVy1UgNap0pvqH6H3/Junior-Frontend-Test-Designs-Public?node-id=0%3A1).
 
 ## Technologies
-1. The application was written using 
-
-https://user-images.githubusercontent.com/81425551/192151158-fa9e79bb-bf7f-48d1-bec7-4cf6f6ebac03.mp4
-
-React framework
+1. The application was written using React framework
 2. Only class components have been used in the application
 3. Both regular CSS (inline and in seperate files) and CSS-in-JS approach allowers (styled-components) were used in the application
 
@@ -27,8 +23,7 @@ React framework
 - Cart page + Cart overlay (minicart)
 
 ## Preview
-
-
+https://user-images.githubusercontent.com/81425551/192151158-fa9e79bb-bf7f-48d1-bec7-4cf6f6ebac03.mp4
 
 
 
