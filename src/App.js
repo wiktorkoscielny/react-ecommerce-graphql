@@ -129,20 +129,42 @@ export default class App extends Component {
 
   // add choosen product to cart
   handleProductAdd = (productData, chosenOptions, productId) => {
+    // remove undefined and empty array from chosen options (when there is less than 3 options to choose)
+    Object.keys(chosenOptions).forEach(
+      (key) => chosenOptions[key][0] === undefined && delete chosenOptions[key]
+    );
+    const removed = chosenOptions.filter((i) => i !== null);
+
+    // check if product has specified options
     const filteredOptions = chosenOptions.filter(
       (item) => item[0] !== undefined
     );
+
+    // check if there is at least one same product already add to cart
+    const existingProduct = this.state.storageOfProducts.products.find(
+      (el) => el.newProduct.id === productId
+    );
+
+    // get all same products already add to cart
+    const matchingItems = this.state.storageOfProducts.products.filter((i) =>
+      i.newProduct.id.includes(productId)
+    );
+    const findOneMatchingItem = matchingItems.find(
+      (e) =>
+        JSON.stringify(e.newProduct.chosenOptions) === JSON.stringify(removed)
+    );
+
+    // add new product
     const newProduct = {
       id: productId,
       productData: productData,
       chosenOptions: filteredOptions,
       slideHandler: 0,
       quantity: 1,
+      uniqueId: new Date().valueOf(),
     };
-    const existingProduct = this.state.storageOfProducts.products.find(
-      (el) => el.newProduct.id === productId
-    );
-    if (existingProduct) {
+
+    if (existingProduct && findOneMatchingItem) {
       this.setState({
         ...this.state,
         configComponent: true,
@@ -190,7 +212,7 @@ export default class App extends Component {
   };
 
   // change configuration of product added to cart
-  handleCartChange = (productId, param1, param2) => {
+  handleCartChange = (productId, param1, param2, uniqueIdParameter) => {
     const existingProduct = this.state.storageOfProducts.products.find(
       (el) => el.newProduct.id === productId
     );
@@ -198,7 +220,8 @@ export default class App extends Component {
     if (!existingProduct) return;
     else {
       this.state.storageOfProducts.products.map((item) => {
-        if (item.newProduct.id === productId) {
+        // change found product options according to its unique id
+        if (item.newProduct.uniqueId === uniqueIdParameter) {
           let index = null;
           for (let i = 0; i < item.newProduct.chosenOptions.length; i++) {
             if (item.newProduct.chosenOptions[i][0] === param2) {
