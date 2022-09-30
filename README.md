@@ -27,7 +27,11 @@ The solution had been implemented as per design, which is available at this [lin
  - [] Routing not working correctly
  - [] Add to cart functionality does not work (redirects and shows white space)
  - [x] Out of stock should be accessible but impossible to buy
- - [] Could not find product secondary images
+ - [?] Could not find product secondary images
+
+`I am not sure if I understood the objection correctly, but in the endpoint I downloaded some products only have one picture`
+![ss of the endpoint](./src/components/assets/product-gallery.jpg)
+
  - [] Dont fetch every category at once. (Fetch only 1 for current category)
  - [] Also same request is sent multiple times
 
