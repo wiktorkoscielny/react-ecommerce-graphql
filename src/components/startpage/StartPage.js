@@ -25,6 +25,7 @@ export default class StartPage extends Component {
       case "tech":
         return (
           <TechCateg
+            handleProductAdd={this.props.handleProductAdd}
             inStock={this.props.inStock}
             techCateg={this.props.techCateg}
             currencyData={this.props.currencyData}
@@ -35,6 +36,7 @@ export default class StartPage extends Component {
       case "clothes":
         return (
           <ClothesCateg
+            handleProductAdd={this.props.handleProductAdd}
             inStock={this.props.inStock}
             clothesCateg={this.props.clothesCateg}
             currencyData={this.props.currencyData}
