@@ -24,16 +24,16 @@ The solution had been implemented as per design, which is available at this [lin
 - Cart page + Cart overlay (minicart)
 
  - [x] Clicking green cart botton should add product to cart with first pre selected attribute values
- - [] Routing not working correctly
- - [] Add to cart functionality does not work (redirects and shows white space)
+ - [ ] Routing not working correctly
+ - [ ] Add to cart functionality does not work (redirects and shows white space)
  - [x] Out of stock should be accessible but impossible to buy
- - [?] Could not find product secondary images
+ - [x] Could not find product secondary images
 
-`I am not sure if I understood the objection correctly, but in the endpoint I downloaded some products only have one picture`
-![ss of the endpoint](./src/components/assets/product-gallery.png)
+    `I am not sure if I understood the objection correctly, but in the endpoint I downloaded some products only have one picture`
+    ![ss of the endpoint](./src/components/assets/product-gallery.png)
 
- - [] Dont fetch every category at once. (Fetch only 1 for current category)
- - [] Also same request is sent multiple times
+ - [ ] Dont fetch every category at once. (Fetch only 1 for current category)
+ - [ ] Also same request is sent multiple times
 
 ## Preview
 https://user-images.githubusercontent.com/81425551/191923067-d10467f5-bf98-4041-9cb2-3f2dec4edf63.mp4
