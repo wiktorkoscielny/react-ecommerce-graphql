@@ -128,7 +128,7 @@ export default class App extends Component {
   };
 
   // add choosen product to cart
-  handleProductAdd = (productData, chosenOptions, productId) => {
+  handleProductAdd = (productData, chosenOptions, productId, stockData) => {
     // remove undefined and empty array from chosen options (when there is less than 3 options to choose)
     Object.keys(chosenOptions).forEach(
       (key) => chosenOptions[key][0] === undefined && delete chosenOptions[key]
@@ -173,6 +173,17 @@ export default class App extends Component {
       setTimeout(() => {
         this.setState({ configComponent: false });
       }, 1200);
+    } else if (
+      stockData === false
+  ) {
+    this.setState({
+      ...this.state,
+      configComponent: true,
+      modalText: "This product is currently out of stock",
+    });
+    setTimeout(() => {
+      this.setState({ configComponent: false });
+    }, 1200);
     } else if (
       newProduct.chosenOptions.length !==
       newProduct.productData.attributes.length
@@ -396,6 +407,7 @@ export default class App extends Component {
                 path={`/details/${item[0].id}`}
                 element={
                   <DetailsPage
+                    inStock={item[0].inStock}
                     modalText={this.state.modalText}
                     configComponent={this.state.configComponent}
                     productData={item[0]}

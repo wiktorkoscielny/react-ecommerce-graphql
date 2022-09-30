@@ -91,7 +91,7 @@ export const ProductInStock = styled.div`
 
   ${({ inStock }) =>
     inStock === false
-      ? "filter: grayscale(99); opacity: .8; pointer-events: none;"
+      ? "filter: grayscale(99); opacity: .8;"
       : ":hover {-webkit-box-shadow: 0px 0px 14px 5px rgba(0,0,0,0.1); box-shadow: 0px 0px 14px 5px rgba(0,0,0,0.1);}"};
 
   &:hover ${FloatingCart} {
@@ -102,6 +102,7 @@ export const ProductInStock = styled.div`
 `;
 export const OutOfStockText = styled.div`
   ${({ inStock }) => (inStock === false ? "display: block" : "display: none")};
+  cursor: pointer;
   position: absolute;
   z-index: 30;
   text-transform: uppercase;

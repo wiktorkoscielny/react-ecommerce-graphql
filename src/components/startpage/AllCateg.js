@@ -38,11 +38,6 @@ export default class AllCateg extends Component {
                 key={index}
                 inStock={inStock !== undefined ? inStock.inStock : null}
               >
-                <OutOfStockText
-                  inStock={inStock !== undefined ? inStock.inStock : null}
-                >
-                  out of stock
-                </OutOfStockText>
                 <FloatingCart
                   onClick={() =>
                     this.props.handleProductAdd(
@@ -55,6 +50,11 @@ export default class AllCateg extends Component {
                   <img src={SmallCart}></img>
                 </FloatingCart>
                 <StyledLink to={`/details/${item[0].id}`}>
+                <OutOfStockText
+                  inStock={inStock !== undefined ? inStock.inStock : null}
+                >
+                  out of stock
+                </OutOfStockText>
                   <ListItem
                   // onClick={() => this.props.productIdCallback(item[0].id)}
                   >
