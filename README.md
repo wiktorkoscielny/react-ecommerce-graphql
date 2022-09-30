@@ -23,7 +23,7 @@ The solution had been implemented as per design, which is available at this [lin
 - PDP - product description page
 - Cart page + Cart overlay (minicart)
 
- - [] Clicking green cart botton shgould add product to cart with first pre selected attribute values
+ - [x] Clicking green cart botton should add product to cart with first pre selected attribute values
  - [] Routing not working correctly
  - [] Add to cart functionality does not work (redirects and shows white space)
  - [] Out of stock should be accessible but impossible to buy

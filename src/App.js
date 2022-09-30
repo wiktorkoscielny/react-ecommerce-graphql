@@ -412,6 +412,7 @@ export default class App extends Component {
             path="/"
             element={
               <StartPage
+                handleProductAdd={this.handleProductAdd}
                 inStock={this.state.inStock}
                 currencySwitcher={this.currencySwitcher}
                 currencyData={this.state.currentCurrency}
@@ -420,7 +421,6 @@ export default class App extends Component {
                 clothesCateg={this.state.clothesCateg}
                 currentCategory={this.state.currentCategory}
                 productClicked={this.props.productClicked}
-                productIdCallback={this.handleProductIdCallback}
               />
             }
           />

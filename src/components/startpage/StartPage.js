@@ -14,6 +14,7 @@ export default class StartPage extends Component {
       case "all":
         return (
           <AllCateg
+            handleProductAdd={this.props.handleProductAdd}
             inStock={this.props.inStock}
             allCateg={this.props.allCateg}
             currencyData={this.props.currencyData}
