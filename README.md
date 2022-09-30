@@ -3,6 +3,7 @@
 * [General info](#general-info)
 * [Technologies](#technologies)
 * [Features](#features)
+* [Fixes based on feedback](#fixes-based-on-feedback)
 * [Preview](#preview)
 
 ## General info
@@ -23,6 +24,7 @@ The solution had been implemented as per design, which is available at this [lin
 - PDP - product description page
 - Cart page + Cart overlay (minicart)
 
+## Fixes based on feedback
  - [x] Clicking green cart botton should add product to cart with first pre selected attribute values
  - [ ] Routing not working correctly
  - [ ] Add to cart functionality does not work (redirects and shows white space)
