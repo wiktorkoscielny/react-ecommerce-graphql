@@ -131,7 +131,15 @@ export default class DetailsPage extends Component {
             )}
           </LeftSection>
           <MiddleSection>
-            {localProductData !== undefined ? (
+            {this.state.currentPhoto !== "" ? (
+              <img
+                src={
+                  this.state.currentPhoto
+                }
+                alt="View of the product in the bigger format"
+                style={{ width: "500px", height: "500px" }}
+              ></img>
+            ) : (
               <img
                 src={
                   localProductData ? (
@@ -143,7 +151,7 @@ export default class DetailsPage extends Component {
                 alt="View of the product in the bigger format"
                 style={{ width: "500px", height: "500px" }}
               ></img>
-            ) : null}
+            )}
           </MiddleSection>
           <RightSection>
             <h2>
