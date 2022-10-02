@@ -27,7 +27,8 @@ The solution had been implemented as per design, which is available at this [lin
  - [x] Clicking green cart botton should add product to cart with first pre selected attribute values
  - [x] Routing not working correctly
    `I have followed these (instructions)[https://github.com/remix-run/react-router/blob/v2.5.2/docs/API.md#link]`
- - [ ] Add to cart functionality does not work (redirects and shows white space)
+ - [x] Add to cart functionality does not work (redirects and shows white space)
+    `I am not sure how the functionality of the 'add to cart' button does not work, because as they say it works for me, I tested this functionality with unit tests and on several browsers and everything seems to be working properly`
  - [x] Out of stock should be accessible but impossible to buy
  - [x] Could not find product secondary images
 
@@ -35,7 +36,7 @@ The solution had been implemented as per design, which is available at this [lin
     ![ss of the endpoint](./src/components/assets/product-gallery.png)
 
  - [x] Dont fetch every category at once. (Fetch only 1 for current category)
- - [ ] Also same request is sent multiple times
+ - [x] Also same request is sent multiple times
 
 ## Preview
 https://user-images.githubusercontent.com/81425551/192151158-fa9e79bb-bf7f-48d1-bec7-4cf6f6ebac03.mp4
