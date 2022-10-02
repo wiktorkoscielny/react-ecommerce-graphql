@@ -14,6 +14,8 @@ export default class StartPage extends Component {
       case "all":
         return (
           <AllCateg
+            currentPathname={this.props.currentPathname}
+            handleProductAdd={this.props.handleProductAdd}
             inStock={this.props.inStock}
             allCateg={this.props.allCateg}
             currencyData={this.props.currencyData}
@@ -24,6 +26,8 @@ export default class StartPage extends Component {
       case "tech":
         return (
           <TechCateg
+            currentPathname={this.props.currentPathname}
+            handleProductAdd={this.props.handleProductAdd}
             inStock={this.props.inStock}
             techCateg={this.props.techCateg}
             currencyData={this.props.currencyData}
@@ -34,6 +38,8 @@ export default class StartPage extends Component {
       case "clothes":
         return (
           <ClothesCateg
+            currentPathname={this.props.currentPathname}
+            handleProductAdd={this.props.handleProductAdd}
             inStock={this.props.inStock}
             clothesCateg={this.props.clothesCateg}
             currencyData={this.props.currencyData}

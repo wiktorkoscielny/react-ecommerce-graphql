@@ -5,6 +5,7 @@ margin-top: 100px;
 display: grid;
 grid-template-columns: 15% auto 40%;
 gap: 2rem;
+${({ inStock }) => (inStock === false ? "opacity: .5" : null)};
 `
 export const LeftSection = styled.div`
     ul {

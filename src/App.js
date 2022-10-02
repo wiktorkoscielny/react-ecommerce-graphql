@@ -10,7 +10,8 @@ import CartPage from "./components/cartpage/CartPage";
 //queries
 import getCurrencies from "./queries/GetCurriences";
 import getCategory from "./queries/GetCategory";
-import checkForInStock from "./queries/CheckForInStock";
+// import checkForInStock from "./queries/CheckForInStock";
+import getProduct from "./queries/GetProducts";
 
 export default class App extends Component {
   constructor(props) {
@@ -36,17 +37,17 @@ export default class App extends Component {
       forceUpdate: 1,
       configComponent: false,
       modalText: "",
-      inStock: [],
+      // inStock: [],
     };
   }
-
   // // Managing the state of the application
 
   componentDidMount = async () => {
-    // localStorage
     const localCurrentCurrency = localStorage.getItem("currentCurrency"),
       localCurrentCategory = localStorage.getItem("currentCategory"),
-      localStorageOfProducts = localStorage.getItem("storageOfProducts");
+      localStorageOfProducts = localStorage.getItem("storageOfProducts"),
+      localProductId = localStorage.getItem("currentProductId"),
+      localPathnameId = localStorage.getItem("currentPathName");
 
     if (localStorageOfProducts) {
       this.setState({
@@ -54,17 +55,6 @@ export default class App extends Component {
         storageOfProducts: JSON.parse(localStorageOfProducts),
       });
     }
-
-    // requested products sorted by category
-    const techFetchedCateg = await JSON.parse(
-      JSON.stringify(await getCategory("tech"))
-    );
-    const clothesFetchedCateg = await JSON.parse(
-      JSON.stringify(await getCategory("clothes"))
-    );
-    const allFetchedCateg = await JSON.parse(
-      JSON.stringify(await getCategory("all"))
-    );
 
     // currencies
     const resultCurrencies = await JSON.parse(
@@ -74,12 +64,10 @@ export default class App extends Component {
     // set state with new variables on component mount
     this.setState({
       ...this.state,
-      techCateg: techFetchedCateg.category.products.map((product) => [product]),
-      clothesCateg: clothesFetchedCateg.category.products.map((product) => [
-        product,
-      ]),
+      productId: JSON.parse(localProductId),
+      pathnameId: localPathnameId,
       // allCateg: JSON.parse(JSON.stringify(allCateg)),
-      allCateg: allFetchedCateg.category.products.map((product) => [product]),
+      // allCateg: allFetchedCateg.category.products.map((product) => [product]),
       currencies: [
         {
           label: resultCurrencies.currencies.map((label) => [label.label]),
@@ -91,16 +79,17 @@ export default class App extends Component {
     });
 
     // create state with inStock data just to use inStock request
-    let arr = [];
-    this.state.allCateg.map(async (item) => {
-      const requestInStockInfo = await JSON.parse(
-        JSON.stringify(await checkForInStock(item[0].id))
-      );
-      arr.push({ id: item[0].id, inStock: requestInStockInfo.product.inStock });
-      return this.setState({
-        inStock: arr,
-      });
-    });
+    // let arr = [];
+    // this.state.allCateg.map(async (item) => {
+    //   const requestInStockInfo = await JSON.parse(
+    //     JSON.stringify(await checkForInStock(item[0].id))
+    //   );
+    //   arr.push({ id: item[0].id, inStock: requestInStockInfo.product.inStock });
+    //   return this.setState({
+    //     inStock: arr,
+    //   });
+    // });
+    this.toggleClicked(localCurrentCategory);
   };
 
   // // Functions
@@ -116,19 +105,61 @@ export default class App extends Component {
   };
 
   // change current category of products
-  toggleClicked = (param) => {
-    const current = param;
-    this.setState(
-      {
-        ...this.state,
-        currentCategory: current,
-      },
-      () => localStorage.setItem("currentCategory", current)
-    );
+  toggleClicked = async (param) => {
+    // fetch only one chosen category at once
+    if (param === "tech") {
+      const techFetchedCateg = await JSON.parse(
+        JSON.stringify(await getCategory("tech"))
+      );
+      this.setState(
+        {
+          ...this.state,
+          techCateg: techFetchedCateg.category.products.map((product) => [
+            product,
+          ]),
+          currentCategory: param,
+          clothesCateg: [],
+          allCateg: [],
+        },
+        () => localStorage.setItem("currentCategory", param)
+      );
+    } else if (param === "clothes") {
+      const clothesFetchedCateg = await JSON.parse(
+        JSON.stringify(await getCategory("clothes"))
+      );
+      this.setState(
+        {
+          ...this.state,
+          clothesCateg: clothesFetchedCateg.category.products.map((product) => [
+            product,
+          ]),
+          currentCategory: param,
+          techCateg: [],
+          allCateg: [],
+        },
+        () => localStorage.setItem("currentCategory", param)
+      );
+    } else if (param === "all") {
+      const allFetchedCateg = await JSON.parse(
+        JSON.stringify(await getCategory("all"))
+      );
+      this.setState(
+        {
+          ...this.state,
+          allCateg: allFetchedCateg.category.products.map((product) => [
+            product,
+          ]),
+          currentCategory: param,
+          techCateg: [],
+          clothesCateg: [],
+        },
+        () => localStorage.setItem("currentCategory", param)
+      );
+    }
   };
 
   // add choosen product to cart
-  handleProductAdd = (productData, chosenOptions, productId) => {
+  handleProductAdd = (productData, chosenOptions, productId, stockData) => {
     // remove undefined and empty array from chosen options (when there is less than 3 options to choose)
     Object.keys(chosenOptions).forEach(
       (key) => chosenOptions[key][0] === undefined && delete chosenOptions[key]
@@ -169,6 +200,15 @@ export default class App extends Component {
         ...this.state,
         configComponent: true,
         modalText: "This product has been already added to cart",
+      });
+      setTimeout(() => {
+        this.setState({ configComponent: false });
+      }, 1200);
+    } else if (stockData === false) {
+      this.setState({
+        ...this.state,
+        configComponent: true,
+        modalText: "This product is currently out of stock",
       });
       setTimeout(() => {
         this.setState({ configComponent: false });
@@ -369,6 +409,20 @@ export default class App extends Component {
         return <>{param.prices[4].amount}</>;
     }
   };
+  handleProductIdCallback = async (childData) => {
+    const product = JSON.parse(JSON.stringify(await getProduct(childData)));
+    this.setState(
+      {
+        ...this.state,
+        // clicked product data that is passed to child
+        productId: product.product,
+        // id of clicked product for creating route path
+        pathnameId: childData,
+      },
+      () => localStorage.setItem("currentPathName", childData),
+            localStorage.setItem("currentProductId", JSON.stringify(product.product))
+    );
+  };
 
   render() {
     return (
@@ -389,30 +443,28 @@ export default class App extends Component {
           totalQuantity={this.state.totalQuantity}
         />
         <Routes>
-          {this.state.allCateg.map((item, index) => {
-            return (
-              <Route
-                key={index}
-                path={`/details/${item[0].id}`}
-                element={
-                  <DetailsPage
-                    modalText={this.state.modalText}
-                    configComponent={this.state.configComponent}
-                    productData={item[0]}
-                    currentCurrency={this.state.currentCurrency}
-                    storageOfProducts={this.state.storageOfProducts}
-                    handleProductAdd={this.handleProductAdd}
-                  />
-                }
+          <Route
+            path="details/:id"
+            element={
+              <DetailsPage
+                modalText={this.state.modalText}
+                configComponent={this.state.configComponent}
+                productData={this.state.productId}
+                currentCurrency={this.state.currentCurrency}
+                storageOfProducts={this.state.storageOfProducts}
+                handleProductAdd={this.handleProductAdd}
               />
-            );
-          })}
+            }
+          />
+
           <Route
             exact
             path="/"
             element={
               <StartPage
-                inStock={this.state.inStock}
+                currentPathname={this.state.pathnameId}
+                productIdCallback={this.handleProductIdCallback}
+                handleProductAdd={this.handleProductAdd}
                 currencySwitcher={this.currencySwitcher}
                 currencyData={this.state.currentCurrency}
                 allCateg={this.state.allCateg}
@@ -420,7 +472,6 @@ export default class App extends Component {
                 clothesCateg={this.state.clothesCateg}
                 currentCategory={this.state.currentCategory}
                 productClicked={this.props.productClicked}
-                productIdCallback={this.handleProductIdCallback}
               />
             }
           />

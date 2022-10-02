@@ -58,20 +58,27 @@ export const TextWrapper = styled.div`
 export const FloatingCart = styled.div`
   visibility: hidden;
   position: absolute;
+  top: 270px;
+  right: 20px;
   opacity: 0;
   transition: visibility 0.3s linear, opacity 0.3s linear;
-  top: 280px;
-  right: 10px;
   height: 52px;
   width: 52px;
   z-index: 30;
   border: 1px solid transparent;
   border-radius: 50%;
   background: var(--light-green);
+  transition: box-shadow 0.3s, transform .3s;
+  cursor: pointer;
   img {
-    position: relative;
-    right: 1px;
+    position: absolute;
+    right: 15px;
     top: 15px;
+  }
+  :hover {
+    -webkit-box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.1); 
+    box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.1);
+    transform: scale(1.1);
   }
 `;
 export const StyledLink = styled(Link)`
@@ -80,10 +87,11 @@ export const StyledLink = styled(Link)`
 export const ProductInStock = styled.div`
   border: 20px solid transparent;
   transition: box-shadow 0.3s;
+  position: relative;
 
   ${({ inStock }) =>
     inStock === false
-      ? "filter: grayscale(99); opacity: .8; pointer-events: none;"
+      ? "filter: grayscale(99); opacity: .8;"
       : ":hover {-webkit-box-shadow: 0px 0px 14px 5px rgba(0,0,0,0.1); box-shadow: 0px 0px 14px 5px rgba(0,0,0,0.1);}"};
 
   &:hover ${FloatingCart} {
@@ -94,6 +102,7 @@ export const ProductInStock = styled.div`
 `;
 export const OutOfStockText = styled.div`
   ${({ inStock }) => (inStock === false ? "display: block" : "display: none")};
+  cursor: pointer;
   position: absolute;
   z-index: 30;
   text-transform: uppercase;

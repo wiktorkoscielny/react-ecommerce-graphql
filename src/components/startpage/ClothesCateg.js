@@ -26,17 +26,28 @@ export default class ClothesCateg extends Component {
         <h1>Tech</h1>
         <ListWrapper>
           {this.props.clothesCateg.map((item, index) => {
-            const inStock = this.props.inStock.find((i) => i.id === item[0].id);
+            // add product to cart on green button click
+            let productOptionsStore = [];
+            item[0].attributes.forEach((x) => {
+              return productOptionsStore.push([x.id, x.id + x.items[0].id]);
+            });
+            // check if product is on stock
+            // const inStock = this.props.inStock.find((i) => i.id === item[0].id);
+            const inStock = item[0].inStock;
             return (
-              <ProductInStock
-                key={index}
-                inStock={inStock !== undefined ? inStock.inStock : null}
-              >
-                <OutOfStockText
-                  inStock={inStock !== undefined ? inStock.inStock : null}
+              <ProductInStock key={index} inStock={inStock}>
+                <OutOfStockText inStock={inStock}>out of stock</OutOfStockText>
+                <FloatingCart
+                  onClick={() =>
+                    this.props.handleProductAdd(
+                      item[0],
+                      productOptionsStore,
+                      item[0].id
+                    )
+                  }
                 >
-                  out of stock
-                </OutOfStockText>
+                  <img src={SmallCart}></img>
+                </FloatingCart>
                 <StyledLink to={`/details/${item[0].id}`}>
                   <ListItem
                     onClick={() => this.props.productIdCallback(item[0].id)}
@@ -51,9 +62,6 @@ export default class ClothesCateg extends Component {
                         {this.props.currencySwitcher(item[0])}
                       </p>
                     </TextWrapper>
-                    <FloatingCart>
-                      <img src={SmallCart}></img>
-                    </FloatingCart>
                   </ListItem>
                 </StyledLink>
               </ProductInStock>
