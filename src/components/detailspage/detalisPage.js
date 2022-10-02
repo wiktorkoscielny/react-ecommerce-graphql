@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+// import { renderToString } from "react-dom/server";
 // styled components
 import {
   SectionsWrapper,
@@ -32,6 +32,7 @@ export default class DetailsPage extends Component {
       ...this.state,
       currency: currentCurrency,
     });
+    window.scrollTo(0, 0)
   }
   changePhoto = (name, index) => {
     this.setState({
@@ -84,12 +85,7 @@ export default class DetailsPage extends Component {
     const localProductData = JSON.parse(
       localStorage.getItem("currentProductId")
     );
-    // const propsData = this.props.productData;
-    // const productGallery = this.props.productData.gallery
-    // const productOptions = localProductData.attributes === null ? this.props.productData.attributes : localProductData.attributes;
-    // const productOptions = localProductData.attributes
-    const regex = /(<([^>]+)>)/gi;
-    // const inStock = this.props.inStock.find((i) => i.id === propsData.id)
+    const describtion = localProductData ? localProductData.description : ''
     return (
       <section>
         <SectionsWrapper
@@ -278,13 +274,18 @@ export default class DetailsPage extends Component {
             >
               add to cart
             </Button>
-            <p>
+            {/* <p>
               {localProductData ? (
-                localProductData.description.replace(regex, "")
+                // localProductData.description.replace(regex, "")
               ) : (
                 <>Loading...</>
               )}
-            </p>
+            </p> */}
+            {/*
+            I'm aware that 'dangerouslySetInnerHTML' is making my app vulnerable to XSS 
+            but it's just becouse I am not sure if I can use other libraries as e.g. 'dompurify' 
+            */}
+            <div dangerouslySetInnerHTML={{ __html: describtion }} style={{marginTop: '30px', marginBottom: '30px'}}></div>
           </RightSection>
         </SectionsWrapper>
       </section>

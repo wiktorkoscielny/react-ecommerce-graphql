@@ -49,13 +49,14 @@ export default class App extends Component {
       localProductId = localStorage.getItem("currentProductId"),
       localPathnameId = localStorage.getItem("currentPathName");
 
+      
     if (localStorageOfProducts) {
       this.setState({
         ...this.state,
         storageOfProducts: JSON.parse(localStorageOfProducts),
       });
     }
-
+    
     // currencies
     const resultCurrencies = await JSON.parse(
       JSON.stringify(await getCurrencies())
@@ -74,23 +75,16 @@ export default class App extends Component {
           symbol: resultCurrencies.currencies.map((symbol) => [symbol.symbol]),
         },
       ],
-      currentCurrency: localCurrentCurrency,
-      currentCategory: localCurrentCategory,
+      currentCurrency: localCurrentCurrency ? localCurrentCurrency : '$',
     });
-
-    // create state with inStock data just to use inStock request
-    // let arr = [];
-    // this.state.allCateg.map(async (item) => {
-    //   const requestInStockInfo = await JSON.parse(
-    //     JSON.stringify(await checkForInStock(item[0].id))
-    //   );
-    //   arr.push({ id: item[0].id, inStock: requestInStockInfo.product.inStock });
-    //   return this.setState({
-    //     inStock: arr,
-    //   });
-    // });
-    this.toggleClicked(localCurrentCategory);
+    // set main category on app first load
+    this.toggleClicked(localCurrentCategory ? localCurrentCategory : 'tech');
   };
+  if (localCurrentCategory) {
+    this.setState({
+      currentCategory: localCurrentCategory,
+    })
+  }
 
   // // Functions
 

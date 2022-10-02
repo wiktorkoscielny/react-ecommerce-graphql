@@ -21,6 +21,7 @@ export default class TechCateg extends Component {
     super(props);
   }
   render() {
+    // const data = this.props.techCateg !== '' this.props.techCateg : 
     return (
       <MainWrapper>
         <h1>Tech</h1>
