@@ -32,12 +32,10 @@ export default class AllCateg extends Component {
               return productOptionsStore.push([x.id, x.id + x.items[0].id]);
             });
             // check if product is on stock
-            const inStock = this.props.inStock.find((i) => i.id === item[0].id);
+            // const inStock = this.props.inStock.find((i) => i.id === item[0].id);
+            const inStock = item[0].inStock;
             return (
-              <ProductInStock
-                key={index}
-                inStock={inStock !== undefined ? inStock.inStock : null}
-              >
+              <ProductInStock key={index} inStock={inStock}>
                 <FloatingCart
                   onClick={() =>
                     this.props.handleProductAdd(
@@ -50,13 +48,11 @@ export default class AllCateg extends Component {
                   <img src={SmallCart}></img>
                 </FloatingCart>
                 <StyledLink to={`/details/${item[0].id}`}>
-                <OutOfStockText
-                  inStock={inStock !== undefined ? inStock.inStock : null}
-                >
-                  out of stock
-                </OutOfStockText>
+                  <OutOfStockText inStock={inStock}>
+                    out of stock
+                  </OutOfStockText>
                   <ListItem
-                  // onClick={() => this.props.productIdCallback(item[0].id)}
+                    onClick={() => this.props.productIdCallback(item[0].id)}
                   >
                     <ImgWrapper>
                       <img src={item[0].gallery}></img>

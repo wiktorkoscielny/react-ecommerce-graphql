@@ -18,7 +18,7 @@ import SmallCart from "../assets/white-cart.png";
 
 export default class TechCateg extends Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
   render() {
     return (
@@ -27,25 +27,30 @@ export default class TechCateg extends Component {
         <ListWrapper>
           {this.props.techCateg.map((item, index) => {
             // add product to cart on green button click
-            let productOptionsStore = []
-            item[0].attributes.forEach(x => {
-              return productOptionsStore.push([x.id, x.id + x.items[0].id])
-            })
+            let productOptionsStore = [];
+            item[0].attributes.forEach((x) => {
+              return productOptionsStore.push([x.id, x.id + x.items[0].id]);
+            });
             // check if product is on stock
-            const inStock = this.props.inStock.find(i => i.id === item[0].id)
+            // const inStock = this.props.inStock.find(i => i.id === item[0].id)
+            const inStock = item[0].inStock;
             return (
-              <ProductInStock key={index} inStock={inStock !== undefined ? inStock.inStock : null}>
-                <OutOfStockText inStock={inStock !== undefined ? inStock.inStock : null}>
-                  out of stock
-                </OutOfStockText>
+              <ProductInStock key={index} inStock={inStock}>
+                <OutOfStockText inStock={inStock}>out of stock</OutOfStockText>
                 <FloatingCart
-                      onClick={() => this.props.handleProductAdd(item[0], productOptionsStore, item[0].id)}
-                    >
-                      <img src={SmallCart}></img>
+                  onClick={() =>
+                    this.props.handleProductAdd(
+                      item[0],
+                      productOptionsStore,
+                      item[0].id
+                    )
+                  }
+                >
+                  <img src={SmallCart}></img>
                 </FloatingCart>
                 <StyledLink to={`/details/${item[0].id}`}>
                   <ListItem
-                    // onClick={() => this.props.productIdCallback(item[0].id)}
+                    onClick={() => this.props.productIdCallback(item[0].id)}
                   >
                     <ImgWrapper>
                       <img src={item[0].gallery}></img>
