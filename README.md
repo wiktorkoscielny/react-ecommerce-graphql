@@ -26,7 +26,7 @@ The solution had been implemented as per design, which is available at this [lin
 ## Fixes based on feedback
  - [x] Clicking green cart botton should add product to cart with first pre selected attribute values
  - [x] Routing not working correctly\
-   `I have followed these (instructions)[https://github.com/remix-run/react-router/blob/v2.5.2/docs/API.md#link]`
+   `I have followed these instructions:\ https://github.com/remix-run/react-router/blob/v2.5.2/docs/API.md#link`
  - [x] Add to cart functionality does not work (redirects and shows white space)\
     `I am not sure how the functionality of the 'add to cart' button does not work, I checked this functionality and it seems to work fine`
  - [x] Out of stock should be accessible but impossible to buy
