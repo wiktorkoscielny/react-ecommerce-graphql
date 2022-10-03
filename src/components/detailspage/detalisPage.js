@@ -111,7 +111,7 @@ export default class DetailsPage extends Component {
           ) : null}
           {this.props.loader === true ? <Loader>Loading...</Loader> : null}
           <LeftSection>
-            {localProductData ? (
+            {localProductData && this.props.loader !== true ? (
               localProductData.gallery.map((item, index) => {
                 return (
                   <ul key={index}>
@@ -148,7 +148,7 @@ export default class DetailsPage extends Component {
               ></img>
             ) : (
               <img
-                src={localProductData ? localProductData.gallery[0] : <></>}
+                src={localProductData && this.props.loader !== true ? localProductData.gallery[0] : <></>}
                 alt="View of the product in the bigger format"
                 style={{ width: "500px", height: "500px" }}
               ></img>

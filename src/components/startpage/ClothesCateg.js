@@ -50,7 +50,7 @@ export default class ClothesCateg extends Component {
                 </FloatingCart>
                 <StyledLink to={`/details/${item[0].id}`}>
                   <ListItem
-                    onClick={() => this.props.productIdCallback(item[0].id)}
+                    onClick={() => {this.props.productIdCallback(item[0].id); this.props.loader(true)}}
                   >
                     <ImgWrapper>
                       <img src={item[0].gallery}></img>

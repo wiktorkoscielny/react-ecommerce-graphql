@@ -34,6 +34,7 @@ export default class StartPage extends Component {
             currencyData={this.props.currencyData}
             currencySwitcher={this.props.currencySwitcher}
             productIdCallback={this.props.productIdCallback}
+            loader={this.props.loader}
           />
         );
       case "clothes":
@@ -46,6 +47,7 @@ export default class StartPage extends Component {
             currencyData={this.props.currencyData}
             currencySwitcher={this.props.currencySwitcher}
             productIdCallback={this.props.productIdCallback}
+            loader={this.props.loader}
           />
         );
     }
