@@ -38,6 +38,7 @@ export default class App extends Component {
       configComponent: false,
       modalText: "",
       // inStock: [],
+      loading: false,
     };
   }
   // // Managing the state of the application
@@ -49,14 +50,13 @@ export default class App extends Component {
       localProductId = localStorage.getItem("currentProductId"),
       localPathnameId = localStorage.getItem("currentPathName");
 
-      
     if (localStorageOfProducts) {
       this.setState({
         ...this.state,
         storageOfProducts: JSON.parse(localStorageOfProducts),
       });
     }
-    
+
     // currencies
     const resultCurrencies = await JSON.parse(
       JSON.stringify(await getCurrencies())
@@ -67,24 +67,22 @@ export default class App extends Component {
       ...this.state,
       productId: JSON.parse(localProductId),
       pathnameId: localPathnameId,
-      // allCateg: JSON.parse(JSON.stringify(allCateg)),
-      // allCateg: allFetchedCateg.category.products.map((product) => [product]),
       currencies: [
         {
           label: resultCurrencies.currencies.map((label) => [label.label]),
           symbol: resultCurrencies.currencies.map((symbol) => [symbol.symbol]),
         },
       ],
-      currentCurrency: localCurrentCurrency ? localCurrentCurrency : '$',
+      currentCurrency: localCurrentCurrency ? localCurrentCurrency : "$",
     });
     // set main category on app first load
-    this.toggleClicked(localCurrentCategory ? localCurrentCategory : 'tech');
+    this.toggleClicked(localCurrentCategory ? localCurrentCategory : "tech");
   };
-  if (localCurrentCategory) {
-    this.setState({
-      currentCategory: localCurrentCategory,
-    })
-  }
+  // if(localCurrentCategory) {
+  //   this.setState({
+  //     currentCategory: localCurrentCategory,
+  //   });
+  // }
 
   // // Functions
 
@@ -403,7 +401,9 @@ export default class App extends Component {
         return <>{param.prices[4].amount}</>;
     }
   };
+  // function responsible for the event related to clicking on the selected product
   handleProductIdCallback = async (childData) => {
+    // fetch the data of the clicked product
     const product = JSON.parse(JSON.stringify(await getProduct(childData)));
     this.setState(
       {
@@ -414,8 +414,15 @@ export default class App extends Component {
         pathnameId: childData,
       },
       () => localStorage.setItem("currentPathName", childData),
-            localStorage.setItem("currentProductId", JSON.stringify(product.product))
+      localStorage.setItem("currentProductId", JSON.stringify(product.product))
     );
+    this.setState({ loading: false });
+  };
+  // display loader on slow internet connection (to avoid displaying previous product data that has not been updated in local storage)
+  loader = (bolean) => {
+    this.setState({
+      loading: bolean,
+    });
   };
 
   render() {
@@ -434,7 +441,7 @@ export default class App extends Component {
           handlePhotoDecreament={this.handlePhotoDecreament}
           quantityAdd={this.quantityAdd}
           quantitySubtract={this.quantitySubtract}
-          totalQuantity={this.state.totalQuantity}
+          // totalQuantity={this.state.totalQuantity}
         />
         <Routes>
           <Route
@@ -447,10 +454,10 @@ export default class App extends Component {
                 currentCurrency={this.state.currentCurrency}
                 storageOfProducts={this.state.storageOfProducts}
                 handleProductAdd={this.handleProductAdd}
+                loader={this.state.loading}
               />
             }
           />
-
           <Route
             exact
             path="/"
@@ -466,6 +473,7 @@ export default class App extends Component {
                 clothesCateg={this.state.clothesCateg}
                 currentCategory={this.state.currentCategory}
                 productClicked={this.props.productClicked}
+                loader={this.loader}
               />
             }
           />
@@ -480,7 +488,7 @@ export default class App extends Component {
                 handlePhotoDecreament={this.handlePhotoDecreament}
                 quantityAdd={this.quantityAdd}
                 quantitySubtract={this.quantitySubtract}
-                totalQuantity={this.state.totalQuantity}
+                // totalQuantity={this.state.totalQuantity}
               />
             }
           />

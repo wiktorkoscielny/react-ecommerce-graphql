@@ -210,7 +210,7 @@ export default class Navbar extends Component {
                   handlePhotoDecreament={this.props.handlePhotoDecreament}
                   quantityAdd={this.props.quantityAdd}
                   quantitySubtract={this.props.quantitySubtract}
-                  totalQuantity={this.props.totalQuantity}
+                  // totalQuantity={this.props.totalQuantity}
                 />
               </div>
             </div>

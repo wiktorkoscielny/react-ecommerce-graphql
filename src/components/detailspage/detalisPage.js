@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import { renderToString } from "react-dom/server";
+
 // styled components
 import {
   SectionsWrapper,
@@ -8,10 +8,15 @@ import {
   RightSection,
   Button,
   ListOfOptions,
+  Loader,
+  // LoaderSVG,
 } from "./Styles";
 
 // modals
 import Config from "../modals/Config";
+
+// assets
+// import loaderSvg from "../assets/loader.svg";
 
 export default class DetailsPage extends Component {
   constructor(props) {
@@ -32,8 +37,12 @@ export default class DetailsPage extends Component {
       ...this.state,
       currency: currentCurrency,
     });
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
   }
+
+  // functions
+
+  // change bigger picture
   changePhoto = (name, index) => {
     this.setState({
       ...this.state,
@@ -41,6 +50,7 @@ export default class DetailsPage extends Component {
       photoKey: index,
     });
   };
+  // change currency
   currencySwitcher = (param) => {
     if (param !== null) {
       switch (this.props.currentCurrency) {
@@ -57,6 +67,7 @@ export default class DetailsPage extends Component {
       }
     }
   };
+  // change product options
   changeFirstOption = (param1, param2) => {
     this.setState({
       ...this.state,
@@ -82,10 +93,11 @@ export default class DetailsPage extends Component {
     });
   };
   render() {
+    // get product data directly from local storage (to persist page refreshing)
     const localProductData = JSON.parse(
       localStorage.getItem("currentProductId")
     );
-    const describtion = localProductData ? localProductData.description : ''
+    const describtion = localProductData ? localProductData.description : "";
     return (
       <section>
         <SectionsWrapper
@@ -97,6 +109,7 @@ export default class DetailsPage extends Component {
               configComponent={this.props.configComponent}
             />
           ) : null}
+          {this.props.loader === true ? <Loader>Loading...</Loader> : null}
           <LeftSection>
             {localProductData ? (
               localProductData.gallery.map((item, index) => {
@@ -123,43 +136,31 @@ export default class DetailsPage extends Component {
                 );
               })
             ) : (
-              <>Loading...</>
+              <Loader>Loading...</Loader>
             )}
           </LeftSection>
           <MiddleSection>
             {this.state.currentPhoto !== "" ? (
               <img
-                src={
-                  this.state.currentPhoto
-                }
+                src={this.state.currentPhoto}
                 alt="View of the product in the bigger format"
                 style={{ width: "500px", height: "500px" }}
               ></img>
             ) : (
               <img
-                src={
-                  localProductData ? (
-                    localProductData.gallery[0]
-                  ) : (
-                    <>Loading...</>
-                  )
-                }
+                src={localProductData ? localProductData.gallery[0] : <></>}
                 alt="View of the product in the bigger format"
                 style={{ width: "500px", height: "500px" }}
               ></img>
             )}
           </MiddleSection>
           <RightSection>
-            <h2>
-              {localProductData ? localProductData.brand : <>Loading...</>}
-            </h2>
-            <h3>
-              {localProductData ? localProductData.name : <>Loading...</>}
-            </h3>
+            <h2>{localProductData && localProductData.brand}</h2>
+            <h3>{localProductData && localProductData.name}</h3>
 
             {/* FIRST OPTION */}
 
-            {localProductData ? (
+            {localProductData &&
               localProductData.attributes.slice(0, 1) &&
               localProductData.attributes.slice(0, 1).map((item, index) => {
                 return (
@@ -181,14 +182,11 @@ export default class DetailsPage extends Component {
                     })}
                   </div>
                 );
-              })
-            ) : (
-              <>Loading...</>
-            )}
+              })}
 
             {/* SECOND OPTION */}
 
-            {localProductData ? (
+            {localProductData &&
               localProductData.attributes.slice(1, 2) &&
               localProductData.attributes.slice(1, 2).map((item, index) => {
                 return (
@@ -210,14 +208,11 @@ export default class DetailsPage extends Component {
                     })}
                   </div>
                 );
-              })
-            ) : (
-              <>Loading...</>
-            )}
+              })}
 
             {/* THIRD OPTION */}
 
-            {localProductData ? (
+            {localProductData &&
               localProductData.attributes.slice(2, 3) &&
               localProductData.attributes.slice(2, 3).map((item, index) => {
                 return (
@@ -239,10 +234,7 @@ export default class DetailsPage extends Component {
                     })}
                   </div>
                 );
-              })
-            ) : (
-              <>Loading...</>
-            )}
+              })}
 
             <h4>price:</h4>
             <p
@@ -274,18 +266,14 @@ export default class DetailsPage extends Component {
             >
               add to cart
             </Button>
-            {/* <p>
-              {localProductData ? (
-                // localProductData.description.replace(regex, "")
-              ) : (
-                <>Loading...</>
-              )}
-            </p> */}
             {/*
             I'm aware that 'dangerouslySetInnerHTML' is making my app vulnerable to XSS 
             but it's just becouse I am not sure if I can use other libraries as e.g. 'dompurify' 
             */}
-            <div dangerouslySetInnerHTML={{ __html: describtion }} style={{marginTop: '30px', marginBottom: '30px'}}></div>
+            <div
+              dangerouslySetInnerHTML={{ __html: describtion }}
+              style={{ marginTop: "30px", marginBottom: "30px" }}
+            ></div>
           </RightSection>
         </SectionsWrapper>
       </section>

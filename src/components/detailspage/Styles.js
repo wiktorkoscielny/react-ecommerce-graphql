@@ -75,3 +75,21 @@ export const ListOfOptions = styled.button`
     font-family: 'Source Sans Pro', sans-serif;
     cursor: pointer;
 `
+export const Loader = styled.div`
+    // ${({ localProductData }) => localProductData === '' ? 'display: none' : 'display: none'};
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    left: 0;
+    top: 0;
+    background: var(--bg-primary);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`
+export const LoaderSVG = styled.img`
+    width: 48px;
+`
