@@ -28,7 +28,7 @@ The solution had been implemented as per design, which is available at this [lin
  - [x] Routing not working correctly\
    `I have followed these instructions: https://github.com/remix-run/react-router/blob/v2.5.2/docs/API.md#link`
  - [x] Add to cart functionality does not work (redirects and shows white space)\
-    `I am not sure how the functionality of the 'add to cart' button does not work, I checked this functionality and it seems to work fine`
+    `I am not sure how the functionality of the 'add to cart' button does not work, I checked this functionality and it seems to work fine, also I have fixed issue with white spaces`
  - [x] Out of stock should be accessible but impossible to buy
  - [x] Could not find product secondary images\
     `I am not sure if I understood the objection correctly, but in the endpoint I downloaded some products only have one picture`
