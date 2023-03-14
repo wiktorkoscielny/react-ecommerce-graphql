@@ -14,7 +14,7 @@ Products can be filtered according to three categories. Products are checked for
 The solution had been implemented as per design, which is available at this [link](https://www.figma.com/file/MSyCAqVy1UgNap0pvqH6H3/Junior-Frontend-Test-Designs-Public?node-id=0%3A1).
 
 ## Technologies
-1. The application was written using React framework
+1. The application was written using React library
 2. Only class components have been used in the application
 3. Both regular CSS (inline and in seperate files) and CSS-in-JS approach allowers (styled-components) were used in the application
 
