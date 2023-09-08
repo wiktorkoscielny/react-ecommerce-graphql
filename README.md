@@ -1,11 +1,17 @@
-# React e-commerce website with apollo graphQL api and with [tilework/opus](https://github.com/tilework/opus) builder
+# React e-commerce website with apollo graphQL api and with [tilework/opus](https://github.com/tilework/opus) builder [UPDATE]
 
-## This Application is currently being refactored
-- use redux to manage the state,
-- type checking,
-- host Apollo Server GraphQL API,
-- code review, and cleanup,
-- host the application
+***This Application is currently being refactored!***
+
+ID | Task
+-- | ----
+1 | Implement redux to manage the state
+2 | Type checking
+3 | Upload endpoint
+4 | Host Apollo Server GraphQL API
+5 | Code review, refactor, and cleanup,
+6 | Host the production live
+
+---
 
 * [General info](#general-info)
 * [Technologies](#technologies)
