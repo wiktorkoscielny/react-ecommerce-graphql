@@ -6,10 +6,11 @@ ID | Task
 -- | ----
 1 | Implement redux to manage the state
 2 | Type checking
-3 | Upload endpoint
-4 | Host Apollo Server GraphQL API
-5 | Code review, refactor, and cleanup,
-6 | Host the production live
+3 | Host Apollo Server GraphQL API
+4 | Code review, refactor, and cleanup,
+5 | Host the production live
+
+***The tasks will be done in under the 'REG-X' tickets***
 
 ---
 
