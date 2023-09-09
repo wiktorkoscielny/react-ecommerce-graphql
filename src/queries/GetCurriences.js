@@ -1,8 +1,9 @@
-import { client, Query, Field} from "@tilework/opus";
+import { client, Query} from "@tilework/opus";
+import { API_ENDPOINT } from "../utils/apiEndpoint";
 
 const getCurrencies = async () => {
 
-    client.setEndpoint("http://localhost:4000/");
+    client.setEndpoint(API_ENDPOINT);
 
     const queryCurrencies = new Query("currencies", true)     
     .addFieldList(["label", "symbol"])

@@ -1,8 +1,9 @@
 import { client, Query} from "@tilework/opus";
+import { API_ENDPOINT } from "../utils/apiEndpoint";
 
 const checkForInStock = async (name) => {
 
-  client.setEndpoint("http://localhost:4000/");
+  client.setEndpoint(API_ENDPOINT);
 
   const queryInStock = new Query("product", true)  
   .addArgument("id", "String!", name)   
