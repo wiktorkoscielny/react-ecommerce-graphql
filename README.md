@@ -8,7 +8,7 @@ ID | Task
 2 | Type checking
 3 | Host Apollo Server GraphQL API
 4 | Code review, refactor, and cleanup,
-5 | Host the production live
+5 | Configure production CI/CD
 
 ***The tasks will be done in under the 'REG-X' tickets***
 
@@ -38,4 +38,4 @@ The solution had been implemented as per design, which is available at this [lin
 - Cart page + Cart overlay (minicart)
 
 ## Preview
-- will include the URL to the production live
+- Production [LIVE](https://react-ecommerce-graphql.netlify.app)
