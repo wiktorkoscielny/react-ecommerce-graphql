@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+/server/apollo-graphql/node_modules
 /.pnp
 .pnp.js
 

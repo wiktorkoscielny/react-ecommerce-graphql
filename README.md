@@ -4,11 +4,15 @@
 
 ID | Task
 -- | ----
-1 | Implement redux to manage the state
-2 | Type checking
-3 | Host Apollo Server GraphQL API
-4 | Code review, refactor, and cleanup,
-5 | Configure production CI/CD
+1 | Configure CI/CD
+2 | Host Apollo Server GraphQL API 
+3 | Type checking
+4 | Implement redux to manage the state
+5 | Code review, refactor, and cleanup,
+6 | Configure non-relational database for the data
+7 | Create login and sign-up functionality
+8 | Create checkout (shipping and payment) pages
+9 | Create admin dashboard to manage the productd
 
 ***The tasks will be done in under the 'REG-X' tickets***
 
