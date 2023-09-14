@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
+/functions/apollo-graphql/node_modules
 
 # testing
 /coverage
