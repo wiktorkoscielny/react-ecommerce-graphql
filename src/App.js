@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 // components
 import Navbar from "./components/navbar/Navbar";
-import StartPage from "./components/startpage/StartPage";
-import DetailsPage from "./components/detailspage/detalisPage";
-import CartPage from "./components/cartpage/CartPage";
+import StartPage from "./components/routes/homepage/startpage/StartPage";
+import DetailsPage from "./components/routes/pdp/detalisPage";
+import CartPage from "./components/routes/cartpage/CartPage";
 
 //queries
 import getCurrencies from "./queries/GetCurriences";

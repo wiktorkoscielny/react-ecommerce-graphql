@@ -14,7 +14,7 @@ import {
 } from "./Styles";
 
 // assets
-import SmallCart from "../assets/white-cart.png";
+import SmallCart from "../../../assets/white-cart.png";
 
 export default class AllCateg extends Component {
   constructor(props) {

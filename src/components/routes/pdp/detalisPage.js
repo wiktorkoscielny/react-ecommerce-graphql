@@ -13,7 +13,7 @@ import {
 } from "./Styles";
 
 // modals
-import Config from "../modals/Config";
+import Config from "../../modals/Config";
 
 // assets
 // import loaderSvg from "../assets/loader.svg";

@@ -24,9 +24,9 @@ import {
 } from "./Styles";
 
 // assets
-import SLIDERLEFT from "../assets/slider-left.png";
-import SLIDERRIGHT from "../assets/slider-right.png";
-import horizontalVector from "../assets/VectorHorizontal.jpg";
+import SLIDERLEFT from "../../assets/slider-left.png";
+import SLIDERRIGHT from "../../assets/slider-right.png";
+import horizontalVector from "../../assets/VectorHorizontal.jpg";
 
 export default class CartPage extends Component {
   constructor(props) {
