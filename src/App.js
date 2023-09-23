@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 // components
 import Navbar from "./components/navbar/Navbar";
-import StartPage from "./components/routes/homepage/startpage/StartPage";
-import DetailsPage from "./components/routes/pdp/detalisPage";
+import HomepageComponent from "./routes/homepage/Homepage.component";
+import DetailsPage from "./components/routes/pdp/ProductDetailsPage.component";
 import CartPage from "./components/routes/cartpage/CartPage";
 
 //queries
@@ -462,7 +462,7 @@ export default class App extends Component {
             exact
             path="/"
             element={
-              <StartPage
+              <HomepageComponent
                 currentPathname={this.state.pathnameId}
                 productIdCallback={this.handleProductIdCallback}
                 handleProductAdd={this.handleProductAdd}

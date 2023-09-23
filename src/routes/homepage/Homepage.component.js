@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 
 // components
-import AllCateg from "./AllCateg";
-import TechCateg from "./TechCateg";
-import ClothesCateg from "./ClothesCateg";
+import AllCateg from "../../categories/All/AllCateg";
+import TechCateg from "../../categories/Tech/TechCateg";
+import ClothesCateg from "../../categories/Clothes/ClothesCateg";
 
-export default class StartPage extends Component {
+export default class HomepageComponent extends Component {
   constructor(props) {
     super(props);
   }
