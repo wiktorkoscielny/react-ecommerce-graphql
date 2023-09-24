@@ -460,18 +460,18 @@ export default class App extends Component {
           />
           <Route
             exact
-            path="/"
+            path="/category"
             element={
               <HomepageComponent
-                currentPathname={this.state.pathnameId}
+                // currentPathname={this.state.pathnameId}
                 productIdCallback={this.handleProductIdCallback}
                 handleProductAdd={this.handleProductAdd}
                 currencySwitcher={this.currencySwitcher}
-                currencyData={this.state.currentCurrency}
-                allCateg={this.state.allCateg}
-                techCateg={this.state.techCateg}
-                clothesCateg={this.state.clothesCateg}
-                currentCategory={this.state.currentCategory}
+                // currencyData={this.state.currentCurrency}
+                // allCateg={this.state.allCateg}
+                // techCateg={this.state.techCateg}
+                // clothesCateg={this.state.clothesCateg}
+                // currentCategory={this.state.currentCategory}
                 productClicked={this.props.productClicked}
                 loader={this.loader}
               />

@@ -36,7 +36,17 @@ const initialState = {
 const RegMainSlice = createSlice({
   name: "regMainSlice",
   initialState,
-  reducers: {},
+  reducers: {
+    updateLoader: (state, action) => {
+      state.loading = action.payload;
+    },
+    setProductId: (state, action) => {
+      state.productId = action.payload;
+    },
+    setPathNameId: (state, action) => {
+      state.pathnameId = action.payload;
+    }
+  },
 });
 
 export const store = configureStore({
